@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/style/style.css">
-    <script type="module" src="./src/scripts/scripts.js" defer></script>
+    <script src="./src/scripts/scripts.js" defer></script>
+    <script src="./src/scripts/json.js" defer></script>
   </head>
   <body>
     <!-- MENU -->
@@ -16,11 +17,12 @@
                 <li><a href="#ct_menu" id="btn_createFile">Create File</a></li>
                 <li><a href="#ct_menu" id="btn_editFile">Edit File</a></li>
                 <li><a href="#ct_menu" id="btn_workFile">Work File</a></li>
+                <li><a href="#ct_menu" id="btn_exit">Exit</a></li>
             </ul>
     </container>
     
     <!-- Welcome -->
-    <container id="ct_welcome" class="wrk_container" style="visibility: visible;">
+    <container id="ct_welcome" class="wrk_container"">
         <div class="containerHeader">
             <h1>Willkommen zur AZE-Tool Website</h1>
             <p>Hier kannst du dir eine Grunddatei erstellen und sie auf deinem Gerät speichern.</p>
@@ -30,7 +32,7 @@
     </container>
 
     <!-- createFile -->
-    <container id="ct_createFile" class="wrk_container" style="visibility: visible;">
+    <container id="ct_createFile" class="wrk_container">
         <h2>Datei Erstellen</h2>
           <p>Nur bei erstmaliger Nutzung notwendig.</p>
           <t>
@@ -109,25 +111,26 @@
                 <label for="otherFreistellung">Sonstige Freistellungen:</label>
                 <input type="text" id="otherName" placeholder="Sonstige Freistellungen">
                 <input type="text" id="otherCount" placeholder="Anzahl Jährlicher Anspruch">
-                <button id="addOther">Hinzufügen</button>
+                <button id="btn_create_addOther">Hinzufügen</button>
               <br/>
                 <h5><div id="otherFreistellung"></div></h5>
               <br/>
-                <button id="saveFile">Datei speichern</button>
+                <button id="btn_create_saveFile">Datei speichern</button>
           </t>
     </container>
 
     <!-- editFile -->
-    <container id="ct_editFile" class="wrk_container" style="visibility: visible;">
+    <container id="ct_editFile" class="wrk_container">
         <h2>Datei auswählen</h2>
           <label>Wähle Konfigurationsdatei (JSON):</label>
         <br/>
-          <button id="loadFile">Datei laden</button>
+          <button id="btn_edit_loadFile">Datei laden</button>
           <div id="fileContent"></div>
+          <div id="editFile_dataDisplay"><br/></div>
     </container>
 
     <!-- workFile -->
-    <container id="ct_workFile" class="wrk_container" style="visibility: visible;">
+    <container id="ct_workFile" class="wrk_container">
         <h2>Datei bearbeiten</h2>
           <p>Hier kannst du deine gespeicherte Datei bearbeiten.</p>
           <p>UNDER CONSTRUCTION</p>

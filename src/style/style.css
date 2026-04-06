@@ -1,0 +1,17 @@
+/* ################ */
+/* Container-Styles */
+/* ################ */
+
+/* Alle Bereiche mit der Klasse "wrk_container" standardmäßig ausblenden */
+.wrk_container {
+    display: none; /* Alle Bereiche standardmäßig ausblenden */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background-color: #f9f9f9;
+}
+
+/* Aktiver Bereich */
+.wrk_container.active {
+    display: block;
+}
