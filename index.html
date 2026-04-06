@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+    <title>AZE-Tool Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/style/style.css">
+    <script type="module" src="./src/scripts/scripts.js" defer></script>
+  </head>
+  <body>
+    <!-- MENU -->
+    <container id="ct_menu" class="menu" style="visibility: visible;">
+        <nav id="navigation">
+            <ul>
+                <li><a href="#ct_menu" id="btn_welcome">Welcome</a></li>
+                <li><a href="#ct_menu" id="btn_createFile">Create File</a></li>
+                <li><a href="#ct_menu" id="btn_editFile">Edit File</a></li>
+                <li><a href="#ct_menu" id="btn_workFile">Work File</a></li>
+            </ul>
+    </container>
+    
+    <!-- Welcome -->
+    <container id="ct_welcome" class="wrk_container" style="visibility: visible;">
+        <div class="containerHeader">
+            <h1>Willkommen zur AZE-Tool Website</h1>
+            <p>Hier kannst du dir eine Grunddatei erstellen und sie auf deinem Gerät speichern.</p>
+            <p>Speichere sie sicher ab, da du sie brauchst um deine Zeiten zu plotten.</p>
+            <p>Du kannst auch eine vorhandene Datei einlesen und bearbeiten.</p>
+        </div>
+    </container>
+
+    <!-- createFile -->
+    <container id="ct_createFile" class="wrk_container" style="visibility: visible;">
+        <h2>Datei Erstellen</h2>
+          <p>Nur bei erstmaliger Nutzung notwendig.</p>
+          <t>
+            <h4>Arbeit Nehmer</h4>
+                <label for="employeeName">Name:</label>
+                <input type="text" id="employeeName" placeholder="Name des Arbeitnehmers">
+                <label for="employeeSurname">Nachname:</label>
+                <input type="text" id="employeeSurname" placeholder="Nachname des Arbeitnehmers">
+                <label for="employeeTitle">Titel:</label>
+                <input type="text" id="employeeTitle" placeholder="Titel des Arbeitnehmers">
+                <label for="employeeID">ID:</label>
+                <input type="text" id="employeeID" placeholder="ID des Arbeitnehmers">
+                <label for="employeeDepartment">Abteilung:</label>
+                <input type="text" id="employeeDepartment" placeholder="Abteilung des Arbeitnehmers">
+                <label for="employeeTeam">Team:</label>
+                <input type="text" id="employeeTeam" placeholder="Team des Arbeitnehmers">
+                <label for="employeeEmail">E-Mail (Privat):</label>
+                <input type="text" id="employeeEmail" placeholder="E-Mail des Arbeitnehmers Privat">
+                <label for="employeeEmailWork">E-Mail (Arbeit):</label>
+                <input type="text" id="employeeEmailWork" placeholder="E-Mail des Arbeitnehmers Arbeit">
+                <label for="employeePhone">Telefonnummer (Privat):</label>
+                <input type="text" id="employeePhone" placeholder="Telefonnummer des Arbeitnehmers Privat">
+                <label for="employeePhoneWork">Telefonnummer (Arbeit):</label>
+                <input type="text" id="employeePhoneWork" placeholder="Telefonnummer des Arbeitnehmers Arbeit">
+                <label for="employeeAddress">Adresse:</label>
+                <input type="text" id="employeeAddress" placeholder="Adresse des Arbeitnehmers">
+              <br/>
+            <h4>Arbeit Geber</h4>
+                <label for="employerName">Name:</label>
+                <input type="text" id="employerName" placeholder="Name des Arbeitgebers">
+                <label for="employerDepartment">Abteilung:</label>
+                <input type="text" id="employerDepartment" placeholder="Abteilung des Arbeitgebers">
+                <label for="employerAddress">Adresse:</label>
+                <input type="text" id="employerAddress" placeholder="Adresse des Arbeitgebers">
+                <label for="employerPhone">Telefonnummer:</label>
+                <input type="text" id="employerPhone" placeholder="Telefonnummer des Arbeitgebers">
+                <label for="employerEmail">E-Mail:</label>
+                <input type="text" id="employerEmail" placeholder="E-Mail des Arbeitgebers">
+                <label for="employerID">ID:</label>
+                <input type="text" id="employerID" placeholder="ID des Arbeitgebers">
+                <label for="employerHr">Bearbeiter Email:</label>
+                <input type="text" id="employerHr" placeholder="Email Bearbeiter des Arbeitgebers">
+              <br/>
+            <h4>Arbeitszeit</h4>
+                <label for="worktimeWeek">Wochenarbeitszeit:</label>
+                <input type="text" id="worktimeWeek" placeholder="Wochenarbeitszeit (Std)">
+                <label for="worktimeDays">Arbeitstage:</label>
+                <input type="text" id="worktimeDays" placeholder="Arbeitstage (Anzahl/Woche)">
+              <br/>
+                <label for="workdayMonday">Montag:</label>
+                <input type="time" id="workdayMondayStart" value="07:00" placeholder="Arbeitszeit Montag (z.B. 07:00)">
+                <input type="time" id="workdayMondayEnd" value="16:30" placeholder="Arbeitszeit Montag Ende (z.B. 15:00)">
+                <label for="workdayTuesday">Dienstag:</label>
+                <input type="time" id="workdayTuesdayStart" value="07:00" placeholder="Arbeitszeit Dienstag (z.B. 07:00)">
+                <input type="time" id="workdayTuesdayEnd" value="16:30" placeholder="Arbeitszeit Dienstag Ende (z.B. 15:00)">
+                <label for="workdayWednesday">Mittwoch:</label>
+                <input type="time" id="workdayWednesdayStart" value="07:00" placeholder="Arbeitszeit Mittwoch (z.B. 07:00)">
+                <input type="time" id="workdayWednesdayEnd" value="16:30" placeholder="Arbeitszeit Mittwoch Ende (z.B. 15:00)">
+                <label for="workdayThursday">Donnerstag:</label>
+                <input type="time" id="workdayThursdayStart" value="07:00" placeholder="Arbeitszeit Donnerstag (z.B. 07:00)">
+                <input type="time" id="workdayThursdayEnd" value="16:30" placeholder="Arbeitszeit Donnerstag Ende (z.B. 15:00)">
+                <label for="workdayFriday">Freitag:</label>
+                <input type="time" id="workdayFridayStart" value="07:00" placeholder="Arbeitszeit Freitag (z.B. 07:00)">
+                <input type="time" id="workdayFridayEnd" value="16:30" placeholder="Arbeitszeit Freitag Ende (z.B. 15:00)">
+                <label for="workdaySaturday">Samstag:</label>
+                <input type="time" id="workdaySaturdayStart" value="00:00" placeholder="Arbeitszeit Samstag (z.B. 07:00)">
+                <input type="time" id="workdaySaturdayEnd" value="00:00" placeholder="Arbeitszeit Samstag Ende (z.B. 15:00)">
+                <label for="workdaySunday">Sonntag:</label>
+                <input type="time" id="workdaySundayStart" value="00:00" placeholder="Arbeitszeit Sonntag (z.B. 07:00)">
+                <input type="time" id="workdaySundayEnd" value="00:00" placeholder="Arbeitszeit Sonntag Ende (z.B. 15:00)">
+              <br/>
+            <h4>Urlaub</h4>
+                <label for="vacationDays">Urlaubstage:</label>
+                <input type="text" id="vacationDays" placeholder="Urlaubstage (Anzahl)">
+              <br/>
+                <label for="otherFreistellung">Sonstige Freistellungen:</label>
+                <input type="text" id="otherName" placeholder="Sonstige Freistellungen">
+                <input type="text" id="otherCount" placeholder="Anzahl Jährlicher Anspruch">
+                <button id="addOther">Hinzufügen</button>
+              <br/>
+                <h5><div id="otherFreistellung"></div></h5>
+              <br/>
+                <button id="saveFile">Datei speichern</button>
+          </t>
+    </container>
+
+    <!-- editFile -->
+    <container id="ct_editFile" class="wrk_container" style="visibility: visible;">
+        <h2>Datei auswählen</h2>
+          <label>Wähle Konfigurationsdatei (JSON):</label>
+        <br/>
+          <button id="loadFile">Datei laden</button>
+          <div id="fileContent"></div>
+    </container>
+
+    <!-- workFile -->
+    <container id="ct_workFile" class="wrk_container" style="visibility: visible;">
+        <h2>Datei bearbeiten</h2>
+          <p>Hier kannst du deine gespeicherte Datei bearbeiten.</p>
+          <p>UNDER CONSTRUCTION</p>
+          <div id="workFileContent"></div>
+    </container>
+</html>
