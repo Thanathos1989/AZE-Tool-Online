@@ -23,20 +23,12 @@ AZE-Tool Online ist eine webbasierte Anwendung zur Verwaltung von Arbeitszeiten 
 - **Work File**: Arbeitsdateien bearbeiten (in Entwicklung)
 
 ## Technische Details
-- **Frontend**: HTML5, CSS3, JavaScript (ES6 Modules)
 - **Frontend**: HTML5, CSS3, JavaScript (Asynchrones File-Handling)
 - **Browser-Unterstützung**: Moderne Browser mit ES6-Modul-Unterstützung
 - **Dateiformat**: JSON für Konfigurationsdateien
 
 ## Projektstatus
-⚠️ **Entwicklungsphase**: Die Anwendung befindet sich in der frühen Entwicklung. Einige Funktionen sind noch nicht vollständig implementiert.
 ⚠️ **Entwicklungsphase**: Grundfunktionen wie das Erstellen, Speichern und Laden von Konfigurationen sind implementiert. Die Arbeitszeiterfassung (Work File) befindet sich im Aufbau.
-
-### Bekannte Einschränkungen
-- JavaScript-Funktionalität teilweise implementiert
-- Kein CSS-Styling vorhanden
-- Dateioperationen erfordern Browser-Unterstützung für File API
-- Work File-Bereich noch nicht funktionsfähig
 
 ## Beitrag
 Dieses Projekt befindet sich in aktiver Entwicklung. Für Beiträge oder Feedback kontaktieren Sie den Entwickler.
