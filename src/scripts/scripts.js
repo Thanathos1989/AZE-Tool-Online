@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("otherCount").value = ""; // Anzahl-Feld leeren
 
         // WORKING
-
+        
 
         addVacation(other);
     });
