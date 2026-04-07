@@ -1,37 +1,42 @@
-# AZE-Tool Online
+# 📝 AZE-Tool Online
+
+![Status](https://img.shields.io/badge/Status-Entwicklung-orange)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue)
 
 ## Beschreibung
-AZE-Tool Online ist eine webbasierte Anwendung zur Verwaltung von Arbeitszeiten und Mitarbeiterdaten. Mit diesem Tool können Benutzer Konfigurationsdateien für Arbeitszeiterfassung erstellen, bearbeiten und verwalten.
+**AZE-Tool Online** ist eine moderne, webbasierte Anwendung zur effizienten Verwaltung von Arbeitszeiten und Mitarbeiterstammdaten. Das Tool ermöglicht es, universelle Konfigurationsdateien im JSON-Format zu erstellen, die als Basis für eine automatisierte Zeiterfassung dienen.
 
 ## Funktionen
-- **Erstellung von Konfigurationsdateien**: Erfassen Sie Mitarbeiter- und Arbeitgeberdaten, Arbeitszeiten und Urlaubsansprüche
-- **Datei-Import/Export**: Laden und Speichern von JSON-Konfigurationsdateien
-- **Arbeitszeiten-Management**: Definieren Sie wöchentliche Arbeitszeiten und tägliche Zeitpläne
-- **Urlaubsverwaltung**: Verwalten Sie Urlaubstage und sonstige Freistellungen
+- 👤 **Mitarbeiterverwaltung**: Detaillierte Erfassung von Personaldaten.
+- 🏢 **Unternehmensdaten**: Hinterlegung von Arbeitgeber- und HR-Informationen.
+- 🕒 **Arbeitszeit-Profile**: Definition von Wochenstunden und flexiblen Tagesplänen (Mo-So).
+- 🏖️ **Urlaubsplaner**: Verwaltung von Jahresurlaub und individuellen Freistellungen.
+- 📂 **Smart JSON Handling**: Exportieren und Importieren von Konfigurationen ohne Datenbankzwang.
+- 🧹 **Auto-Reset**: Intelligentes Leeren der Formulare nach erfolgreichem Export.
 
 ## Verwendung
 
 ### Lokale Ausführung
-1. Klonen oder herunterladen Sie das Repository
-2. Öffnen Sie `index.html` in einem modernen Webbrowser
-3. Navigieren Sie durch die verschiedenen Bereiche über das Menü
+1. Repository klonen oder als ZIP herunterladen.
+2. Die Datei `index.html` in einem modernen Browser öffnen.
+3. *Alternativ*: Die `Programmstart.bat` nutzen, um das Tool direkt im Edge-Kiosk-Modus zu starten.
 
 ### Navigation
-- **Welcome**: Startseite mit Einführung
-- **Create File**: Neue Konfigurationsdatei erstellen
-- **Edit File**: Bestehende Datei laden und anzeigen
-- **Work File**: Arbeitsdateien bearbeiten (in Entwicklung)
+- **Welcome**: Der Einstiegsbereich mit Kurzanleitung.
+- **Create File**: Erstellung der initialen Konfigurationsdatei.
+- **Edit File**: Vorhandene JSON-Dateien laden, einsehen und anpassen.
+- **Work File**: Zukünftiger Bereich für die tägliche Zeiterfassung.
 
 ## Technische Details
-- **Frontend**: HTML5, CSS3, JavaScript (Asynchrones File-Handling)
-- **Browser-Unterstützung**: Moderne Browser mit ES6-Modul-Unterstützung
-- **Dateiformat**: JSON für Konfigurationsdateien
+- **Frontend**: HTML5, CSS3 (Modernes Flex/Grid-Layout).
+- **Logik**: Vanilla JavaScript (ES6+) mit asynchronem FileReader-Handling.
+- **Datenformat**: JSON (Standardisiert für maximale Kompatibilität).
 
 ## Projektstatus
-⚠️ **Entwicklungsphase**: Grundfunktionen wie das Erstellen, Speichern und Laden von Konfigurationen sind implementiert. Die Arbeitszeiterfassung (Work File) befindet sich im Aufbau.
+⚠️ **Under Construction**: Die Kernfunktionen zum Erstellen und Bearbeiten von Konfigurationen sind stabil. Der Bereich für das aktive Zeittracking (`Work File`) befindet sich aktuell in der Umsetzung.
 
-## Beitrag
-Dieses Projekt befindet sich in aktiver Entwicklung. Für Beiträge oder Feedback kontaktieren Sie den Entwickler.
+---
+*Entwickelt für eine einfache und papierlose Arbeitszeitorganisation.*
 
 ## Lizenz
 [Hier Lizenzinformationen einfügen, falls vorhanden]

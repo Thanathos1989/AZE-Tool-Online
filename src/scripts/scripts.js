@@ -1,7 +1,7 @@
 // #################
 // Globale Variablen
 // #################
-let vacationOthers = []; // Hier werden die Sonstigen Freistellungen gespeichert, damit sie in verschiedenen Funktionen zugänglich sind
+var vacationOthers = []; // Hier werden die Sonstigen Freistellungen gespeichert, damit sie in verschiedenen Funktionen zugänglich sind
 
 // #################
 // Event Listener
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btn_create_addOther").addEventListener("click", () => {
         // Greifen des Values der Felder
         var other = {"name": document.getElementById("otherName").value, "count": document.getElementById("otherCount").value};
-        var vacationList = [];
         
         // Überprüfen, ob die Anzahl leer ist, und gegebenenfalls auf 0 setzen
         if (other.count === "") {
@@ -52,20 +51,38 @@ document.addEventListener("DOMContentLoaded", () => {
             return; // Funktion verlassen, wenn kein Name gegeben
         }
 
-        vacationList.push(other); // Neue Freistellung hinzufügen
         document.getElementById("otherName").value = ""; // Eingabefeld leeren
         document.getElementById("otherCount").value = ""; // Anzahl-Feld leeren
 
-        // WORKING
-        
+        // Überprüfung auf Duplikate (ignoriert Groß-/Kleinschreibung)
+        const exists = vacationOthers.some(v => v.name.toLowerCase() === other.name.toLowerCase());
+        if (exists) {
+            alert("Diese Freistellung ('" + other.name + "') wurde bereits hinzugefügt.");
+            return; // Beendet die Funktion, ohne das Duplikat hinzuzufügen
+        }
 
-        addVacation(other);
+        vacationOthers.push(other); // Neue Freistellung hinzufügen
+
+        // Bezeichnung sonstige Freistellungen aktivieren
+        document.getElementById("otherName").focus();
+        
+        const displayDiv = document.getElementById("otherFreistellung");
+        if (displayDiv) {
+            displayDiv.innerHTML = ""; // Zuerst leeren
+            vacationOthers.forEach((item, index) => {
+                // Nutze Template-Strings (Backticks) und += zum Hinzufügen
+                displayDiv.innerHTML += `${index + 1}.\t\t ${item.name}\t\t\t : ${item.count}<br/>`;
+            });
+        }
+        //addVacation(vacationOthers);
+        
     });
 // |    |-- Datei speichern
     document.getElementById("btn_create_saveFile").addEventListener("click", () => {
         // Funktion zum Speichern der Datei aufrufen
         let dataCreateFile = getData(); // Ruft die Funktion auf, um die Daten aus den Formularen zu sammeln und in einem Objekt zu speichern
         saveFileAsJson(dataCreateFile); // Ruft die Funktion zum Speichern der Datei auf und übergibt die gesammelten Daten als Argument
+        resetCreateFileFields(); // Felder nach dem Export leeren
     });
 // |    
 // |    |-- Edit File
@@ -106,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         fileInput.click(); // Klicken auf das unsichtbare Datei-Input-Element, um den Datei-Dialog zu öffnen
     });
+    // Working
 // |    
 // |-- Work File
 
@@ -179,12 +197,32 @@ function getData() {
 
     return data; // Gibt die gesammelten Daten zurück, damit sie in anderen Funktionen verwendet werden können (z.B. zum Speichern der Datei)
 };
+
 function addVacation(other) {
     console.log("Hinzufügen Button geklickt:", other); // Debugging
-    
 }
 
 // -- verarbeitung
+// Leert alle Eingabefelder im Bereich "Datei Erstellen" und setzt die Liste der Freistellungen zurück.
+function resetCreateFileFields() {
+    const container = document.getElementById("ct_createFile");
+    if (!container) return;
+
+    // Alle Input-Felder innerhalb des Containers leeren
+    const inputs = container.querySelectorAll("input");
+    inputs.forEach(input => {
+        input.value = "";
+    });
+
+    // Globales Array für sonstige Freistellungen zurücksetzen
+    vacationOthers = [];
+
+    // Anzeige der Freistellungen im Div leeren
+    const displayDiv = document.getElementById("otherFreistellung");
+    if (displayDiv) {
+        displayDiv.innerHTML = "";
+    }
+}
 
 // -- ausgabe
 // |-- Datenobjekt aus JSON auswerten zum bearbeiten.
@@ -224,8 +262,6 @@ function displayData(data) {
         document.getElementById("editFile_dataDisplay").innerHTML += "<div id='otherFreistellung'></div>"; // Hier werden die hinzugefügten Freistellungen angezeigt
     }, 1);
 };
-
-
 
 
 // Initialisierung beim Laden der Seite

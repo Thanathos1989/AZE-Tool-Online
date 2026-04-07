@@ -1,9 +1,9 @@
-# AZE-Tool Online - Dokumentation
+# 📖 AZE-Tool Online - Dokumentation
 
 ## Übersicht
-Das AZE-Tool Online ist eine webbasierte Anwendung zur Verwaltung von Arbeitszeiten und Mitarbeiterdaten. Die Anwendung ermöglicht es Benutzern, eine Grundkonfigurationsdatei zu erstellen, bestehende Dateien zu laden und zu bearbeiten, sowie Arbeitszeiten zu verwalten.
+Diese Dokumentation beschreibt die Architektur und Funktionsweise des AZE-Tools. Die Anwendung dient der Erstellung und Modifikation von Konfigurationsdatensätzen für die Arbeitszeiterfassung.
 
-## Projektstruktur
+## 🏗 Projektstruktur
 ```
 AZE-Tool-Online/
 ├── index.html          # Haupt-HTML-Datei mit der Benutzeroberfläche
