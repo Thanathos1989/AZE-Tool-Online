@@ -1,7 +1,7 @@
 # 📝 AZE-Tool Online
 
 ![Status](https://img.shields.io/badge/Status-Beta-orange)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![Version](https://img.shields.io/badge/Version-0.1.0-blue)
 
 ## Beschreibung
 **AZE-Tool Online** ist eine moderne, webbasierte Anwendung zur effizienten Verwaltung von Arbeitszeiten und Mitarbeiterstammdaten. Das Tool ermöglicht es, universelle Konfigurationsdateien im JSON-Format zu erstellen, die als Basis für eine automatisierte Zeiterfassung dienen.
