@@ -305,6 +305,17 @@ function showArea(areaId) {
         if (selectedArea) {
             selectedArea.classList.add("active");
         }
+
+        // Navigation-Links aktualisieren: .active Klasse am Button setzen
+        const navLinks = document.querySelectorAll("#navigation a");
+        navLinks.forEach(link => link.classList.remove("active"));
+
+        // Die ID des Buttons ableiten (ct_welcome -> btn_welcome)
+        const activeBtnId = areaId.replace("ct_", "btn_");
+        const activeBtn = document.getElementById(activeBtnId);
+        if (activeBtn) {
+            activeBtn.classList.add("active");
+        }
     }
 }
 // -- eingabe

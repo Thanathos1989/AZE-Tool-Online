@@ -48,90 +48,136 @@
           <button id="btn_edit_loadFile">Datei laden</button>
         <hr/>
         <div id="edit_form_container">
-            <t>
+            <div class="form-section">
                 <h4>Arbeit Nehmer</h4>
-                    <label for="edit_employeeName">Name:</label>
-                    <input type="text" id="edit_employeeName" placeholder="Name">
-                    <label for="edit_employeeSurname">Nachname:</label>
-                    <input type="text" id="edit_employeeSurname" placeholder="Nachname">
-                    <label for="edit_employeeTitle">Titel:</label>
-                    <input type="text" id="edit_employeeTitle" placeholder="Titel">
-                    <label for="edit_employeeID">ID:</label>
-                    <input type="text" id="edit_employeeID" placeholder="ID">
-                    <label for="edit_employeeDepartment">Abteilung:</label>
-                    <input type="text" id="edit_employeeDepartment" placeholder="Abteilung">
-                    <label for="edit_employeeTeam">Team:</label>
-                    <input type="text" id="edit_employeeTeam" placeholder="Team">
-                    <label for="edit_employeeEmail">E-Mail (Privat):</label>
-                    <input type="text" id="edit_employeeEmail" placeholder="E-Mail Privat">
-                    <label for="edit_employeeEmailWork">E-Mail (Arbeit):</label>
-                    <input type="text" id="edit_employeeEmailWork" placeholder="E-Mail Arbeit">
-                    <label for="edit_employeePhone">Telefonnummer (Privat):</label>
-                    <input type="text" id="edit_employeePhone" placeholder="Telefonnummer Privat">
-                    <label for="edit_employeePhoneWork">Telefonnummer (Arbeit):</label>
-                    <input type="text" id="edit_employeePhoneWork" placeholder="Telefonnummer Arbeit">
-                    <label for="edit_employeeAddress">Adresse:</label>
-                    <input type="text" id="edit_employeeAddress" placeholder="Adresse">
-                <br/>
-                <h4>Arbeit Geber</h4>
-                    <label for="edit_employerName">Name:</label>
-                    <input type="text" id="edit_employerName" placeholder="Name">
-                    <label for="edit_employerDepartment">Abteilung:</label>
-                    <input type="text" id="edit_employerDepartment" placeholder="Abteilung">
-                    <label for="edit_employerAddress">Adresse:</label>
-                    <input type="text" id="edit_employerAddress" placeholder="Adresse">
-                    <label for="edit_employerPhone">Telefonnummer:</label>
-                    <input type="text" id="edit_employerPhone" placeholder="Telefonnummer">
-                    <label for="edit_employerEmail">E-Mail:</label>
-                    <input type="text" id="edit_employerEmail" placeholder="E-Mail">
-                    <label for="edit_employerID">ID:</label>
-                    <input type="text" id="edit_employerID" placeholder="ID">
-                    <label for="edit_employerHr">Bearbeiter Email:</label>
-                    <input type="text" id="edit_employerHr" placeholder="Email Bearbeiter">
-                <br/>
-                <h4>Arbeitszeit</h4>
-                    <label for="edit_worktimeWeek">Wochenarbeitszeit:</label>
-                    <input type="text" id="edit_worktimeWeek" placeholder="Wochenarbeitszeit (Std)">
-                    <label for="edit_worktimeDays">Arbeitstage:</label>
-                    <input type="text" id="edit_worktimeDays" placeholder="Arbeitstage (Anzahl/Woche)">
-                <br/>
-                    <label for="edit_workdayMonday">Montag:</label>
-                    <input type="time" id="edit_workdayMondayStart">
-                    <input type="time" id="edit_workdayMondayEnd">
-                    <label for="edit_workdayTuesday">Dienstag:</label>
-                    <input type="time" id="edit_workdayTuesdayStart">
-                    <input type="time" id="edit_workdayTuesdayEnd">
-                    <label for="edit_workdayWednesday">Mittwoch:</label>
-                    <input type="time" id="edit_workdayWednesdayStart">
-                    <input type="time" id="edit_workdayWednesdayEnd">
-                    <label for="edit_workdayThursday">Donnerstag:</label>
-                    <input type="time" id="edit_workdayThursdayStart">
-                    <input type="time" id="edit_workdayThursdayEnd">
-                    <label for="edit_workdayFriday">Freitag:</label>
-                    <input type="time" id="edit_workdayFridayStart">
-                    <input type="time" id="edit_workdayFridayEnd">
-                    <label for="edit_workdaySaturday">Samstag:</label>
-                    <input type="time" id="edit_workdaySaturdayStart">
-                    <input type="time" id="edit_workdaySaturdayEnd">
-                    <label for="edit_workdaySunday">Sonntag:</label>
-                    <input type="time" id="edit_workdaySundayStart">
-                    <input type="time" id="edit_workdaySundayEnd">
-                <br/>
-                <h4>Urlaub</h4>
-                    <label for="edit_vacationDays">Urlaubstage:</label>
-                    <input type="text" id="edit_vacationDays" placeholder="Urlaubstage (Anzahl)">
-                <br/>
-                    <label for="edit_otherName">Sonstige Freistellungen:</label>
-                    <input type="text" id="edit_otherName" placeholder="Name">
-                    <input type="text" id="edit_otherCount" placeholder="Anzahl">
-                    <button id="btn_edit_addOther">Hinzufügen</button>
-                <br/>
-                    <h5><div id="edit_otherFreistellung"></div></h5>
-                <br/>
-                <div id="edit_saveArea">
-                    <button id="btn_edit_saveFile">Änderungen speichern</button>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit_employeeName">Vorname:</label>
+                        <input type="text" id="edit_employeeName" placeholder="Vorname">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeeSurname">Nachname:</label>
+                        <input type="text" id="edit_employeeSurname" placeholder="Nachname">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeeTitle">Titel:</label>
+                        <input type="text" id="edit_employeeTitle" placeholder="z.B. M.Sc.">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeeID">Personal-ID:</label>
+                        <input type="text" id="edit_employeeID" placeholder="ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeeDepartment">Abteilung:</label>
+                        <input type="text" id="edit_employeeDepartment" placeholder="Abteilung">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeeTeam">Team:</label>
+                        <input type="text" id="edit_employeeTeam" placeholder="Team">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeeEmail">E-Mail (Privat):</label>
+                        <input type="text" id="edit_employeeEmail" placeholder="privat@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeeEmailWork">E-Mail (Arbeit):</label>
+                        <input type="text" id="edit_employeeEmailWork" placeholder="arbeit@firma.de">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeePhone">Telefon (Privat):</label>
+                        <input type="text" id="edit_employeePhone" placeholder="Telefon">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employeePhoneWork">Telefon (Arbeit):</label>
+                        <input type="text" id="edit_employeePhoneWork" placeholder="Telefon Arbeit">
+                    </div>
+                    <div class="form-group u-full-width">
+                        <label for="edit_employeeAddress">Adresse:</label>
+                        <input type="text" id="edit_employeeAddress" placeholder="Straße, PLZ, Ort">
+                    </div>
                 </div>
-            </t>
+            </div>
+
+            <div class="form-section">
+                <h4>Arbeit Geber</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit_employerName">Firmenname:</label>
+                        <input type="text" id="edit_employerName" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employerDepartment">Abteilung:</label>
+                        <input type="text" id="edit_employerDepartment" placeholder="Abteilung">
+                    </div>
+                    <div class="form-group u-full-width">
+                        <label for="edit_employerAddress">Adresse:</label>
+                        <input type="text" id="edit_employerAddress" placeholder="Adresse">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employerPhone">Telefonnummer:</label>
+                        <input type="text" id="edit_employerPhone" placeholder="Telefon">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employerEmail">Zentral E-Mail:</label>
+                        <input type="text" id="edit_employerEmail" placeholder="E-Mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employerID">Betriebsnummer/ID:</label>
+                        <input type="text" id="edit_employerID" placeholder="ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_employerHr">HR E-Mail:</label>
+                        <input type="text" id="edit_employerHr" placeholder="Email Bearbeiter">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Arbeitszeit</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit_worktimeWeek">Soll-Stunden (Woche):</label>
+                        <input type="text" id="edit_worktimeWeek" placeholder="z.B. 40">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_worktimeDays">Arbeitstage/Woche:</label>
+                        <input type="text" id="edit_worktimeDays" placeholder="z.B. 5">
+                    </div>
+                </div>
+                <div class="workday-time-grid">
+                    <div class="workday-row header"><span>Tag</span><span>Start</span><span>Ende</span></div>
+                    <div class="workday-row"><span>Montag</span><input type="time" id="edit_workdayMondayStart"><input type="time" id="edit_workdayMondayEnd"></div>
+                    <div class="workday-row"><span>Dienstag</span><input type="time" id="edit_workdayTuesdayStart"><input type="time" id="edit_workdayTuesdayEnd"></div>
+                    <div class="workday-row"><span>Mittwoch</span><input type="time" id="edit_workdayWednesdayStart"><input type="time" id="edit_workdayWednesdayEnd"></div>
+                    <div class="workday-row"><span>Donnerstag</span><input type="time" id="edit_workdayThursdayStart"><input type="time" id="edit_workdayThursdayEnd"></div>
+                    <div class="workday-row"><span>Freitag</span><input type="time" id="edit_workdayFridayStart"><input type="time" id="edit_workdayFridayEnd"></div>
+                    <div class="workday-row"><span>Samstag</span><input type="time" id="edit_workdaySaturdayStart"><input type="time" id="edit_workdaySaturdayEnd"></div>
+                    <div class="workday-row"><span>Sonntag</span><input type="time" id="edit_workdaySundayStart"><input type="time" id="edit_workdaySundayEnd"></div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Urlaub</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit_vacationDays">Urlaubstage (Jahr):</label>
+                        <input type="text" id="edit_vacationDays" placeholder="Anzahl">
+                    </div>
+                </div>
+                <div class="other-vacation-area">
+                    <label>Zusätzliche Freistellungen:</label>
+                    <div class="inline-form">
+                        <input type="text" id="edit_otherName" placeholder="Grund (z.B. AZV)">
+                        <input type="text" id="edit_otherCount" placeholder="Tage">
+                        <button id="btn_edit_addOther">Hinzufügen</button>
+                    </div>
+                    <div id="edit_otherFreistellung" class="list-display"></div>
+                </div>
+            </div>
+
+            <div id="edit_saveArea" class="save-actions">
+                <button id="btn_edit_saveFile" class="btn-primary">Änderungen speichern</button>
+            </div>
         </div>
         <div id="editFile_dataDisplay"></div>
     </container>
