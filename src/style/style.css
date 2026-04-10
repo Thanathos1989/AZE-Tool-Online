@@ -31,3 +31,50 @@
     font-family: sans-serif;
     line-height: 1.3;
 }
+
+/* Utility Classes */
+.u-hidden {
+    display: none !important;
+}
+
+/* Work File Styles */
+.input-year {
+    width: 80px;
+}
+
+.label-spacing {
+    margin-left: 15px;
+}
+
+.table-container {
+    margin-top: 15px;
+    overflow-x: auto;
+}
+
+.work-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.work-table thead tr {
+    border-bottom: 2px solid #ddd;
+}
+
+.work-table tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+.work-comment-input {
+    width: 100%;
+}
+
+.header-id {
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.header-employer {
+    font-size: 0.85em;
+    color: #555;
+}

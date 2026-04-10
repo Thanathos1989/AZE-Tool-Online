@@ -135,13 +135,13 @@ function initializeWorkFile() {
     const workContent = document.getElementById("work_actual_content");
 
     if (!currentConfig) {
-        if (noConfigMsg) noConfigMsg.style.display = "block";
-        if (workContent) workContent.style.display = "none";
+        if (noConfigMsg) noConfigMsg.classList.remove("u-hidden");
+        if (workContent) workContent.classList.add("u-hidden");
         return;
     }
 
-    if (noConfigMsg) noConfigMsg.style.display = "none";
-    if (workContent) workContent.style.display = "block";
+    if (noConfigMsg) noConfigMsg.classList.add("u-hidden");
+    if (workContent) workContent.classList.remove("u-hidden");
 
     const workYear = document.getElementById("work_year");
     const workMonth = document.getElementById("work_month");
@@ -176,7 +176,6 @@ function generateWorkDays(year, month) {
     for (let d = 1; d <= daysInMonth; d++) {
         const entry = monthData.find(e => parseInt(e[0]) === d);
         const row = document.createElement("tr");
-        row.style.borderBottom = "1px solid #eee";
         row.innerHTML = `
             <td><b>${d}</b></td>
             <td><input type="time" class="work_start" value="${entry ? entry[1] : ""}"></td>
@@ -189,7 +188,7 @@ function generateWorkDays(year, month) {
                     <option value="§30c" ${entry && entry[4] === "§30c" ? "selected" : ""}>§30c</option>
                 </select>
             </td>
-            <td><input type="text" class="work_comment" placeholder="Kommentar..." style="width: 100%;" value="${entry ? entry[5] : ""}"></td>
+            <td><input type="text" class="work_comment work-comment-input" placeholder="Kommentar..." value="${entry ? entry[5] : ""}"></td>
         `;
 
         const startIn = row.querySelector(".work_start");
@@ -365,8 +364,8 @@ function updateHeaderDisplay(data) {
 
     headerInfo.innerHTML = `
         <div><strong>${emp.surname || ""}, ${emp.name || ""}</strong> (${emp.title || ""})</div>
-        <div style="font-size: 0.85em; font-weight: bold;">ID: ${emp.id || "---"}</div>
-        <div style="font-size: 0.85em; color: #555;">${employer.name || ""} - ${employer.department || ""}</div>
+        <div class="header-id">ID: ${emp.id || "---"}</div>
+        <div class="header-employer">${employer.name || ""} - ${employer.department || ""}</div>
     `;
 }
 
