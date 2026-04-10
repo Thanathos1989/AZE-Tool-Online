@@ -7,12 +7,12 @@
 **AZE-Tool Online** ist eine moderne, webbasierte Anwendung zur effizienten Verwaltung von Arbeitszeiten und Mitarbeiterstammdaten. Das Tool ermöglicht es, universelle Konfigurationsdateien im JSON-Format zu erstellen, die als Basis für eine automatisierte Zeiterfassung dienen.
 
 ## Funktionen
-- 👤 **Mitarbeiterverwaltung**: Detaillierte Erfassung von Personaldaten.
-- 🏢 **Unternehmensdaten**: Hinterlegung von Arbeitgeber- und HR-Informationen.
-- 🕒 **Arbeitszeit-Profile**: Definition von Wochenstunden und flexiblen Tagesplänen (Mo-So).
-- 🏖️ **Urlaubsplaner**: Verwaltung von Jahresurlaub und individuellen Freistellungen.
-- 📂 **Smart JSON Handling**: Exportieren und Importieren von Konfigurationen ohne Datenbankzwang.
-- 🧹 **Auto-Reset**: Intelligentes Leeren der Formulare nach erfolgreichem Export.
+ - 👤 **Mitarbeiterverwaltung**: Zentrale Erfassung von Stammdaten im Bereich "Edit File".
+ - 🏢 **Unternehmensbranding**: Einfaches Austauschen des Firmenlogos für ein individuelles Design.
+ - 🕒 **Flexibles Journal**: Monatliche Arbeitszeiterfassung mit automatischer Pausenberechnung (Arbeitsstättenverordnung).
+ - 🌿 **Nature Dark Design**: Angenehme Wald-Ästhetik mit interaktivem Constellation-Hintergrund für ermüdungsfreies Arbeiten.
+ - 📂 **Smart JSON Handling**: Deep-Merge-Verfahren beim Speichern, um bestehende Datenstrukturen zu schützen.
+ - 📱 **Responsive Design**: Optimierte Darstellung für Desktop, Tablet und Smartphone.
 
 ## Verwendung
 

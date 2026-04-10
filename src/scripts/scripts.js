@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // |    |-- Edit File
 // |        |-- Datei laden
     document.getElementById("btn_edit_loadFile").addEventListener("click", () => {
+        // Erzeugt ein verstecktes Datei-Input-Element um den Browser-Dialog zu triggern
         const fileInput = document.createElement("input");
         fileInput.type = "file";
         fileInput.accept = ".json";
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             try {
                 currentConfig = await processJsonFile(file);
+                // Stammdaten in das Formular füllen
                 displayData(currentConfig);
             } catch (error) {
                 console.error("Fehler im Ablauf:", error);
@@ -55,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fileInput.click();
     });
 
+    // Speichern der bearbeiteten Konfiguration
     document.getElementById("btn_edit_saveFile").addEventListener("click", () => {
         let updatedData = updateConfigWithFormData("edit_");
         saveFileAsJson(updatedData);
@@ -77,7 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
     initInteractiveBackground();
 });
 
-// Gemeinsame Logik für Freistellungen
+/**
+ * Fügt eine neue Freistellungsart (z.B. AZV) zum internen Array hinzu.
+ * @param {string} prefix - ID-Präfix der beteiligten Felder.
+ * @param {string} nameId - ID des Namens-Feldes.
+ * @param {string} countId - ID des Anzahl-Feldes.
+ * @param {Array} array - Ziel-Array.
+ * @param {string} displayId - Ziel-Div für die Textausgabe.
+ */
 function addOtherVacation(prefix, nameId, countId, array, displayId) {
     var other = {
         "name": document.getElementById(nameId).value, 
@@ -105,6 +115,11 @@ function addOtherVacation(prefix, nameId, countId, array, displayId) {
     renderOtherList(array, displayId);
 }
 
+/**
+ * Generiert eine visuelle Liste der hinzugefügten Freistellungen im Formular.
+ * @param {Array} array - Die Datenliste.
+ * @param {string} displayId - Ziel-Container.
+ */
 function renderOtherList(array, displayId) {
     const displayDiv = document.getElementById(displayId);
     if (displayDiv) {
@@ -130,11 +145,15 @@ function sanitizeTime(timeString) {
     return `${hours.slice(0, 2)}:${minutes.slice(0, 2)}`;
 }
 
-// Bereitet den Work-File Bereich vor und setzt das aktuelle Datum
+/**
+ * Steuert die Anzeige im Bereich 'Work File' (Journal).
+ * Blendet eine Fehlermeldung ein, wenn noch keine Konfiguration geladen wurde.
+ */
 function initializeWorkFile() {
     const noConfigMsg = document.getElementById("work_no_config_msg");
     const workContent = document.getElementById("work_actual_content");
 
+    // Check ob Basisdaten vorhanden sind
     if (!currentConfig) {
         if (noConfigMsg) noConfigMsg.classList.remove("u-hidden");
         if (workContent) workContent.classList.add("u-hidden");
@@ -160,7 +179,11 @@ function initializeWorkFile() {
     workMonth.onchange = () => generateWorkDays(workYear.value, workMonth.value);
 }
 
-// Erzeugt die Eingabemaske für jeden Tag des gewählten Monats
+/**
+ * Baut die Journal-Tabelle für den spezifischen Monat auf.
+ * @param {number} year - Das gewählte Jahr.
+ * @param {number} month - Der gewählte Monat.
+ */
 function generateWorkDays(year, month) {
     const tbody = document.getElementById("work_days_body");
     if (!tbody) return;
@@ -208,6 +231,7 @@ function generateWorkDays(year, month) {
                 let diff = (end - start) / (1000 * 60 * 60);
                 if (diff < 0) diff += 24; // Korrektur falls über Mitternacht gearbeitet wird
 
+                // Gesetzliche Pausenregelung: >6h = 30min, >9h = 45min
                 if (diff > 9) breakIn.value = "00:45";
                 else if (diff > 6) breakIn.value = "00:30";
                 else breakIn.value = "00:00";
@@ -231,7 +255,10 @@ function generateWorkDays(year, month) {
     }
 }
 
-// Extrahiert Journal-Daten und führt sie mit der bestehenden Konfiguration zusammen
+/**
+ * Liest die Journal-Tabelle aus und integriert die Daten in die aktuelle currentConfig.
+ * Speichert anschließend die neue JSON-Datei.
+ */
 function saveWorkFileData() {
     const year = document.getElementById("work_year").value;
     const month = document.getElementById("work_month").value;
@@ -266,7 +293,11 @@ function saveWorkFileData() {
     alert(`Das Journal für ${month}/${year} wurde der JSON-Konfiguration hinzugefügt.`);
 }
 
-// Führt die Formulardaten mit der bestehenden Konfiguration zusammen, um keine Daten zu verlieren
+/**
+ * Liest das Formular aus und merged die Daten mit dem bestehenden currentConfig-Objekt.
+ * Stellt sicher, dass Felder in der JSON, die nicht im UI sind, nicht gelöscht werden.
+ * @param {string} prefix - Präfix für die Formular-Elemente.
+ */
 function updateConfigWithFormData(prefix) {
     const formData = getData(prefix);
     
@@ -319,7 +350,11 @@ function showArea(areaId) {
     }
 }
 // -- eingabe
-// |-- Daten aus Formularen sammeln und in einem Objekt speichern Create File
+/**
+ * Sammelt alle Werte der Input-Felder basierend auf einem Präfix.
+ * @param {string} prefix - 'edit_' oder leer.
+ * @returns {Object} Strukturiertes Datenobjekt für die JSON.
+ */
 function getData(prefix = "") {
     let data = { 
         "employee": {
@@ -383,8 +418,10 @@ function updateHeaderDisplay(data) {
 
 // -- verarbeitung
 // -- ausgabe
-// |-- Datenobjekt aus JSON auswerten zum bearbeiten.
-// Daten im div "editFile_dataDisplay" anzeigen
+/**
+ * Befüllt die Edit-Maske mit den Werten aus einem geladenen Objekt.
+ * @param {Object} data - Das geparste JSON-Objekt.
+ */
 function displayData(data) {
     console.log("scripts.js displayData > Daten erhalten: ", data);
     const p = "edit_"; // Prefix
@@ -445,7 +482,7 @@ function initInteractiveBackground() {
     const ctx = canvas.getContext('2d');
     
     let particles = [];
-    const particleCount = 150; // Etwas mehr Partikel für ein schöneres Netz
+    const particleCount = 90; // Etwas mehr Partikel für ein schöneres Netz
     const connectionDistance = 150; // Max Distanz für Linien
     const mouse = { x: -1000, y: -1000 };
 

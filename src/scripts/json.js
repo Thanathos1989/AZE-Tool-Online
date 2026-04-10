@@ -1,5 +1,9 @@
 // Create File
 // |-- Datei Speichern
+/**
+ * Erzeugt eine lokale JSON-Datei aus einem Objekt und startet den Browser-Download.
+ * @param {Object} data - Das zu speichernde Daten-Objekt.
+ */
 function saveFileAsJson(data) {
     const jsonData = JSON.stringify(data, null, 2); // Daten als JSON formatieren
     const blob = new Blob([jsonData], { type: "application/json" }); // Blob erstellen
@@ -13,29 +17,12 @@ function saveFileAsJson(data) {
     URL.revokeObjectURL(url); // Blob-URL freigeben
 }
 // |-- JSON parsen und als Objekt zurückgeben
+/**
+ * Liest eine Datei über den FileReader ein und gibt das Ergebnis als Promise zurück.
+ * @param {File} file - Das File-Objekt vom Input-Element.
+ * @returns {Promise<Object>} - Geparstes JSON-Objekt.
+ */
 function processJsonFile(file) {
-/*
-    if (!file) return; // Überprüfen, ob eine Datei ausgewählt wurde
-
-    const reader = new FileReader(); // FileReader-Objekt erstellen, um die Datei zu lesen
-
-    // Event-Listener für das Laden der Datei hinzufügen
-    reader.onload = (e) => {
-        try {
-            const jsonData = JSON.parse(e.target.result); // JSON-Daten parsen
-            // Hier rufst du die nächste Funktion auf, die mit den Daten arbeitet, z.B. renderDashboard(jsonData);
-            console.log("json.js    processJsonFile     :", jsonData) // DEBUGGING
-            return jsonData;
-        } catch (error) {
-            alert("Fehler beim Laden der Datei.");
-            console.error("Parsing Fehler:", error);
-        }
-    };
-
-    reader.onerror = () => alert("Fehler beim Lesen der Datei.");
-    reader.readAsText(file);    // Datei als Text lesen, um sie später als JSON zu parsen
-*/
-
     return new Promise((resolve, reject) => {
         if (!file) return reject("Keine Datei ausgewählt");
 

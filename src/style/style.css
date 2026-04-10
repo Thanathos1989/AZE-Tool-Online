@@ -10,6 +10,7 @@
 /* Farb-Variablen   */
 /* ################ */
 :root {
+    /* Definierte Farbpalette für das "Nature Dark" Design */
     --bg-main: #121412;           /* Fast Schwarz mit Grünstich */
     --bg-container: #1e231f;      /* Dunkles Waldgrün-Grau */
     --bg-accent: #2d362f;         /* Hellere Sektionen */
@@ -33,9 +34,10 @@ body {
     line-height: 1.6;
 }
 
+/* Akzentuierung von Sektionstiteln */
 h1, h2, h3, h4 {
     color: var(--primary-green);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color); /* Trennlinie zur besseren Strukturierung */
     padding-bottom: 10px;
 }
 
@@ -44,23 +46,24 @@ h1, h2, h3, h4 {
 /* ################ */
 
 .wrk_container {
-    display: none;
+    display: none; /* Initial ausgeblendet, Steuerung via JS (.active) */
     padding: 30px;
     border: 1px solid var(--border-color);
     border-radius: 15px;
     background-color: var(--bg-container);
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    max-width: 100%;
+    max-width: 100%; /* Verhindert Überlaufen auf kleinen Screens */
     width: min(1100px, 95%);
     margin: 20px auto;
 }
 
 .wrk_container.active {
-    display: block;
+    display: block; /* Wird durch showArea() in scripts.js getriggert */
 }
 
 /* Header Info Styles */
 .menu {
+    /* Flexbox für Logo/Info rechts und Menü links */
     position: relative;
     min-height: 80px;
     background-color: var(--bg-container);
@@ -113,13 +116,26 @@ h1, h2, h3, h4 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Container für Text-Metadaten (Name, ID, Firma) */
 .header-info {
     text-align: right;
 }
 
+.header-right-content {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Abstand zwischen Text und Logo */
+}
+
+.header-logo img{
+    height: 60px;
+    width: auto;
+    display: block;
+}
+
 /* Hintergrund Canvas */
 .background-canvas {
-    position: fixed;
+    position: fixed; /* Fixiert am Viewport hinter dem Content */
     top: 0;
     left: 0;
     width: 100%;
@@ -147,6 +163,7 @@ input[type="text"],
 input[type="number"], 
 input[type="time"], 
 select {
+    /* Anpassung an das Dark Theme */
     background-color: var(--bg-main);
     border: 1px solid var(--border-color);
     color: var(--text-main);
@@ -159,6 +176,16 @@ input:focus, select:focus {
     outline: none;
     border-color: var(--primary-green);
     box-shadow: 0 0 5px var(--dark-green);
+}
+
+code {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--primary-green);
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-family: monospace;
 }
 
 button {
@@ -176,6 +203,7 @@ button:hover {
     background-color: var(--primary-green);
 }
 
+/* Scrollbarer Bereich für die Journal-Tabelle auf Mobilgeräten */
 .table-container {
     margin-top: 15px;
     overflow-x: auto;
@@ -196,6 +224,7 @@ button:hover {
     border-bottom: 1px solid var(--border-color);
 }
 
+/* Visuelles Feedback beim Zeilen-Hover im Journal */
 .work-table tbody tr:hover {
     background-color: var(--bg-accent);
 }
@@ -203,6 +232,7 @@ button:hover {
 .work-comment-input {
     width: 100%;
 }
+
 
 .header-id {
     font-size: 0.85em;
@@ -215,6 +245,7 @@ button:hover {
     color: var(--text-muted);
 }
 
+/* Styling für die Kurzanleitung auf der Startseite */
 .how-to-section {
     margin-top: 30px;
     padding: 20px;
@@ -233,7 +264,17 @@ button:hover {
     line-height: 1.5;
 }
 
-/* Form Layout Styles */
+/* Warnhinweis-Box für wichtige Nutzerinformationen */
+.warning-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(93, 64, 55, 0.15); /* Dezentes Erdbraun als Hintergrund */
+    border: 1px solid var(--earth-brown);
+    border-radius: 10px;
+    color: var(--text-main);
+}
+
+/* Gruppierung der Eingabefelder im Edit-Bereich */
 .form-section {
     margin-bottom: 30px;
     padding: 15px;
@@ -241,6 +282,7 @@ button:hover {
     border-radius: 8px;
 }
 
+/* Grid für nebeneinanderstehende Eingabefelder */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -258,6 +300,7 @@ button:hover {
     color: var(--text-muted);
 }
 
+/* Utility: Element nutzt die volle Breite des Grids */
 .u-full-width {
     grid-column: span 2;
 }
@@ -267,6 +310,7 @@ button:hover {
     max-width: 500px;
 }
 
+/* Layout für Zeiteingaben (Montag-Sonntag) */
 .workday-row {
     display: grid;
     grid-template-columns: 120px 1fr 1fr;
@@ -297,6 +341,7 @@ button:hover {
     border-radius: 5px;
 }
 
+/* Zentrierter Bereich für den finalen Export-Button */
 .save-actions {
     margin-top: 40px;
     text-align: center;
@@ -308,6 +353,7 @@ button:hover {
 /* Responsivität    */
 /* ################ */
 @media (max-width: 850px) {
+    /* Umbruch des Headers auf Mobilgeräten */
     .menu {
         flex-direction: column;
         padding: 15px;

@@ -18,13 +18,12 @@ AZE-Tool-Online/
 ## Funktionen
 
 ### 1. Navigation (Menu)
-- **Welcome**: Einführungsseite mit Beschreibung der Anwendung
-- **Create File**: Erstellung einer neuen Konfigurationsdatei mit Mitarbeiter- und Arbeitsgeberdaten
-- **Edit File**: Laden und Anzeigen einer bestehenden JSON-Konfigurationsdatei
-- **Work File**: Bereich zur Bearbeitung von Arbeitszeiten (Aktuell: Under Construction)
+- **Welcome**: Einstiegsseite mit Kurzanleitung ("How To") und Branding-Hinweisen.
+- **Edit File**: Kombinierter Bereich zum Neuerstellen oder Modifizieren von Stammdaten.
+- **Work File**: Monatliches Journal zur Erfassung von Beginn, Ende und Pausen.
 
-### 2. Dateierstellung (Create File)
-Eingabefelder für:
+### 2. Konfiguration (Edit File)
+Verwaltung folgender Datenblöcke:
 - **Arbeitnehmerdaten**: Name, Nachname, Titel, ID, Abteilung, Team, E-Mail (privat/arbeits), Telefonnummer (privat/arbeits), Adresse
 - **Arbeitgeberdaten**: Name, Abteilung, Adresse, Telefonnummer, E-Mail, ID, HR-Bearbeiter
 - **Arbeitszeit**: Wochenarbeitszeit, Arbeitstage pro Woche, tägliche Arbeitszeiten (Mo-So)

@@ -4,6 +4,7 @@
     <title>AZE-Tool Website</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="./src/img/azetool.png">   
     <link rel="stylesheet" href="./src/style/style.css">
     <script src="./src/scripts/scripts.js" defer></script>
     <script src="./src/scripts/json.js" defer></script>
@@ -20,13 +21,16 @@
                 <li><a href="#ct_menu" id="btn_exit">Exit</a></li>
             </ul>
         </nav>
-        <div id="header_info" class="header-info"></div>
+        <div class="header-right-content">
+            <div id="header_info" class="header-info"></div>
+            <div class="header-logo"><img src="src/img/logo.png" alt="AZE Logo"></div>
+        </div>
     </container>
     
     <!-- Welcome -->
     <container id="ct_welcome" class="wrk_container">
         <div class="containerHeader">
-            <h1>Willkommen zur AZE-Tool Website</h1>
+            <h1>Willkommen zur AZE-Tool Website<img src="src/img/logo.png" style="float: right; vertical-align: top; height: 150px; margin-right: 20px;" alt="Logo"></h1>
             <p>Hier kannst du dir eine Grunddatei erstellen und sie auf deinem Gerät speichern.</p>
             <p>Speichere sie sicher ab, da du sie brauchst um deine Zeiten zu plotten.</p>
             <p>Du kannst auch eine vorhandene Datei einlesen und bearbeiten.</p>
@@ -38,6 +42,22 @@
                 <li><strong>Stammdaten:</strong> Ergänze deine Daten und die deines Arbeitgebers. Klicke auf "Änderungen speichern", um die Datei lokal auf deinem PC zu sichern.</li>
                 <li><strong>Journal:</strong> Sobald eine Datei geladen ist, kannst du unter <em>Work File</em> deine täglichen Arbeitszeiten für den gewählten Monat erfassen und an deine JSON-Datei anhängen.</li>
             </ol>
+        </div>
+        <div class="warning-box">
+            <h4>⚠️ Wichtiger Hinweis zu Freistellungen</h4>
+            <p>Bitte beachte: Das Feld <strong>"Tage / Jahr"</strong> bei den zusätzlichen Freistellungen darf nur ausgefüllt werden, wenn die jeweilige Freistellung einen <strong>jährlichen Anspruch</strong> besitzt (ähnlich wie der reguläre Erholungsurlaub). Einmalige Ereignisse dürfen hier kein Jahreskontingent erhalten.</p>
+        </div>
+        <div class="logo-info-section">
+            <h3>Individualisierung (Logo)</h3>
+            <div class="logo-info-content">
+                <div class="logo-preview">
+                    <img src="src/img/azetool.png" alt="Aktuelles Logo Vorschau">
+                </div>
+                <div class="logo-explanation">
+                    <p>Um die Anwendung an dein eigenes Branding anzupassen, kannst du das Logo oben rechts austauschen:</p>
+                    <p>Ersetze einfach die Bilddatei unter <code>src/img/logo.png</code> durch dein eigenes Logo. Achte darauf, dass der Dateiname identisch bleibt, damit die Verknüpfung bestehen bleibt.</p>
+                </div>
+            </div>
         </div>
     </container>
 
@@ -168,7 +188,7 @@
                     <label>Zusätzliche Freistellungen:</label>
                     <div class="inline-form">
                         <input type="text" id="edit_otherName" placeholder="Grund (z.B. AZV)">
-                        <input type="text" id="edit_otherCount" placeholder="Tage">
+                        <input type="text" id="edit_otherCount" placeholder="Tage / Jahr">
                         <button id="btn_edit_addOther">Hinzufügen</button>
                     </div>
                     <div id="edit_otherFreistellung" class="list-display"></div>
