@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialisierung: Zeige beim Start die Willkommensseite
     showArea("ct_welcome");
+    initInteractiveBackground();
 });
 
 // Gemeinsame Logik für Freistellungen
@@ -423,3 +424,103 @@ function displayData(data) {
     updateHeaderDisplay(data);
     console.log("Bearbeitungsmaske erfolgreich gefüllt.");
 };
+
+/**
+ * Erzeugt einen interaktiven Hintergrund mit Dreiecken, die der Maus folgen.
+ */
+function initInteractiveBackground() {
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let particles = [];
+    const particleCount = 150; // Etwas mehr Partikel für ein schöneres Netz
+    const connectionDistance = 150; // Max Distanz für Linien
+    const mouse = { x: -1000, y: -1000 };
+
+    class Particle {
+        constructor() {
+            this.init();
+        }
+
+        init() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = 2;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(76, 175, 80, 0.5)'; // primary-green mit Transparenz
+            ctx.fill();
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Interaktion mit Maus
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 200) {
+                this.x += dx * 0.01;
+                this.y += dy * 0.01;
+            }
+
+            // Border-Check
+            if (this.x < -20) this.x = canvas.width + 20;
+            if (this.x > canvas.width + 20) this.x = -20;
+            if (this.y < -20) this.y = canvas.height + 20;
+            if (this.y > canvas.height + 20) this.y = -20;
+        }
+    }
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Linien zeichnen
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < connectionDistance) {
+                    // Opazität basierend auf Entfernung (näher = deutlicher)
+                    const opacity = 1 - (dist / connectionDistance);
+                    ctx.strokeStyle = `rgba(76, 175, 80, ${opacity * 0.4})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    resize();
+    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+    animate();
+}
