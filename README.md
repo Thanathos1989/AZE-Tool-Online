@@ -1,6 +1,6 @@
 # 📝 AZE-Tool Online
 
-![Status](https://img.shields.io/badge/Status-Entwicklung-orange)
+![Status](https://img.shields.io/badge/Status-Beta-orange)
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue)
 
 ## Beschreibung
