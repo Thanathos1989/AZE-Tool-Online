@@ -15,3 +15,19 @@
 .wrk_container.active {
     display: block;
 }
+
+/* Header Info Styles */
+.menu {
+    position: relative;
+    min-height: 60px;
+}
+
+.header-info {
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+    text-align: right;
+    font-family: sans-serif;
+    line-height: 1.3;
+}

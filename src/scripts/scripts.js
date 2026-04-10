@@ -1,7 +1,8 @@
 // #################
 // Globale Variablen
 // #################
-var vacationOthers = []; // Hier werden die Sonstigen Freistellungen gespeichert, damit sie in verschiedenen Funktionen zugänglich sind
+var vacationOthersEdit = [];   // Freistellungen für "Bearbeiten"
+let currentConfig = null;      // Speichert die aktuell geladene JSON-Struktur
 
 // #################
 // Event Listener
@@ -12,10 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btn_welcome").addEventListener("click", () => {
         showArea("ct_welcome");
     });
-// |    |-- create File
-    document.getElementById("btn_createFile").addEventListener("click", () => {
-        showArea("ct_createFile");
-    });
 // |    |-- edit File
     document.getElementById("btn_editFile").addEventListener("click", () => {
         showArea("ct_editFile");
@@ -23,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // |    |-- work File
     document.getElementById("btn_workFile").addEventListener("click", () => {
         showArea("ct_workFile");
+        initializeWorkFile();
     });
 // |    |-- Exit
     document.getElementById("btn_exit").addEventListener("click", () => {
@@ -35,97 +33,256 @@ document.addEventListener("DOMContentLoaded", () => {
 // |    
 // |-- Container
 // |    |-- Create File
-// |        |-- Freistellungen hinzufügen
-    document.getElementById("btn_create_addOther").addEventListener("click", () => {
-        // Greifen des Values der Felder
-        var other = {"name": document.getElementById("otherName").value, "count": document.getElementById("otherCount").value};
-        
-        // Überprüfen, ob die Anzahl leer ist, und gegebenenfalls auf 0 setzen
-        if (other.count === "") {
-            other.count = 0; // Standardwert wenn keine Angabe vorhanden
-        }
-
-        // Überprüfen ob Name leer ist
-        if (other.name === "") {
-            alert("Bitte geben Sie einen Namen für die Freistellung ein.");
-            return; // Funktion verlassen, wenn kein Name gegeben
-        }
-
-        document.getElementById("otherName").value = ""; // Eingabefeld leeren
-        document.getElementById("otherCount").value = ""; // Anzahl-Feld leeren
-
-        // Überprüfung auf Duplikate (ignoriert Groß-/Kleinschreibung)
-        const exists = vacationOthers.some(v => v.name.toLowerCase() === other.name.toLowerCase());
-        if (exists) {
-            alert("Diese Freistellung ('" + other.name + "') wurde bereits hinzugefügt.");
-            return; // Beendet die Funktion, ohne das Duplikat hinzuzufügen
-        }
-
-        vacationOthers.push(other); // Neue Freistellung hinzufügen
-
-        // Bezeichnung sonstige Freistellungen aktivieren
-        document.getElementById("otherName").focus();
-        
-        const displayDiv = document.getElementById("otherFreistellung");
-        if (displayDiv) {
-            displayDiv.innerHTML = ""; // Zuerst leeren
-            vacationOthers.forEach((item, index) => {
-                // Nutze Template-Strings (Backticks) und += zum Hinzufügen
-                displayDiv.innerHTML += `${index + 1}.\t\t ${item.name}\t\t\t : ${item.count}<br/>`;
-            });
-        }
-        //addVacation(vacationOthers);
-        
-    });
-// |    |-- Datei speichern
-    document.getElementById("btn_create_saveFile").addEventListener("click", () => {
-        // Funktion zum Speichern der Datei aufrufen
-        let dataCreateFile = getData(); // Ruft die Funktion auf, um die Daten aus den Formularen zu sammeln und in einem Objekt zu speichern
-        saveFileAsJson(dataCreateFile); // Ruft die Funktion zum Speichern der Datei auf und übergibt die gesammelten Daten als Argument
-        resetCreateFileFields(); // Felder nach dem Export leeren
-    });
-// |    
 // |    |-- Edit File
 // |        |-- Datei laden
     document.getElementById("btn_edit_loadFile").addEventListener("click", () => {
-        // Funktion zum Laden der Datei aufrufen
-        const fileInput = document.createElement("input"); // Erstellen eines unsichtbaren Datei-Input-Elements
-        fileInput.type = "file"; // Setzen des Input-Typs auf "file"
-        fileInput.accept = ".json"; // Akzeptieren nur von JSON-Dateien
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = ".json";
         fileInput.addEventListener("change", async (event) => {
-            // Zugriff auf die ausgewählte Datei
             const file = event.target.files[0];
-
-            // Abbruchkreterien
-            // file ist leer
             if (!file) return;
-            // Überprüfen, ob eine gültige JSON-Datei ausgewählt wurde
             if (file.type !== "application/json") return alert("Bitte wählen Sie eine gültige JSON-Datei aus."); 
 
-            // Aufruf des Parsers
-            /*
-            const jsonFile = await processJsonFile(file);
-            console.log("scripts.js     eventHandler    jsonFile: ", jsonFile) // Debugging 
-            */
-            
             try {
-                // Warten bis processJsonFile fertig ist
-                const jsonFile = await processJsonFile(file);
-                console.log("after processJsonFile      :", jsonFile); // debugging
-
-                // Daten anzeigen
-                displayData(jsonFile);
-
+                currentConfig = await processJsonFile(file);
+                displayData(currentConfig);
             } catch (error) {
                 console.error("Fehler im Ablauf:", error);
                 alert(error);
             }
         });
-        fileInput.click(); // Klicken auf das unsichtbare Datei-Input-Element, um den Datei-Dialog zu öffnen
+        fileInput.click();
     });
-    // Working
-// |    
-// |-- Work File
+
+    document.getElementById("btn_edit_saveFile").addEventListener("click", () => {
+        let updatedData = updateConfigWithFormData("edit_");
+        saveFileAsJson(updatedData);
+        updateHeaderDisplay(updatedData);
+        alert("Änderungen wurden als neue Datei gespeichert.");
+    });
+// |
+// |    |-- Freistellungen hinzufügen
+    document.getElementById("btn_edit_addOther").addEventListener("click", () => {
+        addOtherVacation("edit_", "edit_otherName", "edit_otherCount", vacationOthersEdit, "edit_otherFreistellung");
+    });
+
+// |    |-- Work File Aktionen
+    document.getElementById("btn_work_save").addEventListener("click", () => {
+        saveWorkFileData();
+    });
+
+    // Initialisierung: Zeige beim Start die Willkommensseite
+    showArea("ct_welcome");
+});
+
+// Gemeinsame Logik für Freistellungen
+function addOtherVacation(prefix, nameId, countId, array, displayId) {
+    var other = {
+        "name": document.getElementById(nameId).value, 
+        "count": document.getElementById(countId).value
+    };
+    
+    if (other.count === "") other.count = 0;
+
+    if (other.name === "") {
+        alert("Bitte geben Sie einen Namen für die Freistellung ein.");
+        return;
+    }
+
+    const exists = array.some(v => v.name.toLowerCase() === other.name.toLowerCase());
+    if (exists) {
+        alert("Diese Freistellung wurde bereits hinzugefügt.");
+        return;
+    }
+
+    array.push(other);
+    document.getElementById(nameId).value = "";
+    document.getElementById(countId).value = "";
+    document.getElementById(nameId).focus();
+    
+    renderOtherList(array, displayId);
+}
+
+function renderOtherList(array, displayId) {
+    const displayDiv = document.getElementById(displayId);
+    if (displayDiv) {
+        displayDiv.innerHTML = "";
+        array.forEach((item, index) => {
+            displayDiv.innerHTML += `${index + 1}.\t\t ${item.name}\t\t\t : ${item.count}<br/>`;
+        });
+    }
+}
+
+/**
+ * Bereinigt Zeit-Strings und füllt fehlende Stellen auf (z.B. "07:" -> "07:00").
+ * @param {string} timeString 
+ * @returns {string} Format HH:MM
+ */
+function sanitizeTime(timeString) {
+    if (!timeString || timeString.trim() === "") return "00:00";
+    
+    let [hours, minutes] = timeString.split(":");
+    hours = (hours || "00").padStart(2, "0");
+    minutes = (minutes || "00").padEnd(2, "0");
+
+    return `${hours.slice(0, 2)}:${minutes.slice(0, 2)}`;
+}
+
+// Bereitet den Work-File Bereich vor und setzt das aktuelle Datum
+function initializeWorkFile() {
+    const noConfigMsg = document.getElementById("work_no_config_msg");
+    const workContent = document.getElementById("work_actual_content");
+
+    if (!currentConfig) {
+        if (noConfigMsg) noConfigMsg.style.display = "block";
+        if (workContent) workContent.style.display = "none";
+        return;
+    }
+
+    if (noConfigMsg) noConfigMsg.style.display = "none";
+    if (workContent) workContent.style.display = "block";
+
+    const workYear = document.getElementById("work_year");
+    const workMonth = document.getElementById("work_month");
+    
+    if (workYear && workYear.value === "") {
+        const now = new Date();
+        workYear.value = now.getFullYear();
+        workMonth.value = now.getMonth() + 1;
+    }
+
+    generateWorkDays(workYear.value, workMonth.value);
+
+    // Updates bei Änderung der Auswahl
+    workYear.onchange = () => generateWorkDays(workYear.value, workMonth.value);
+    workMonth.onchange = () => generateWorkDays(workYear.value, workMonth.value);
+}
+
+// Erzeugt die Eingabemaske für jeden Tag des gewählten Monats
+function generateWorkDays(year, month) {
+    const tbody = document.getElementById("work_days_body");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+
+    const daysInMonth = new Date(year, month, 0).getDate();
+    
+    // Vorhandene Journal-Daten für diesen Monat abrufen, falls vorhanden
+    let monthData = [];
+    if (currentConfig && currentConfig.journal && currentConfig.journal[year] && currentConfig.journal[year][month]) {
+        monthData = currentConfig.journal[year][month];
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const entry = monthData.find(e => parseInt(e[0]) === d);
+        const row = document.createElement("tr");
+        row.style.borderBottom = "1px solid #eee";
+        row.innerHTML = `
+            <td><b>${d}</b></td>
+            <td><input type="time" class="work_start" value="${entry ? entry[1] : ""}"></td>
+            <td><input type="time" class="work_end" value="${entry ? entry[2] : ""}"></td>
+            <td><input type="time" class="work_break" value="${entry ? entry[3] : "00:00"}"></td>
+            <td>
+                <select class="work_reason">
+                    <option value="">-</option>
+                    <option value="Gem. DP" ${entry && entry[4] === "Gem. DP" ? "selected" : ""}>Gem. DP</option>
+                    <option value="§30c" ${entry && entry[4] === "§30c" ? "selected" : ""}>§30c</option>
+                </select>
+            </td>
+            <td><input type="text" class="work_comment" placeholder="Kommentar..." style="width: 100%;" value="${entry ? entry[5] : ""}"></td>
+        `;
+
+        const startIn = row.querySelector(".work_start");
+        const endIn = row.querySelector(".work_end");
+        const breakIn = row.querySelector(".work_break");
+
+        const updateBreak = () => {
+            // Falls Felder unvollständig sind (z.B. "07:--"), füllen wir sie für die Berechnung auf
+            const startTime = sanitizeTime(startIn.value);
+            const endTime = sanitizeTime(endIn.value);
+
+            // Wir führen die Berechnung aus, sobald mindestens ein Feld einen Wert hat
+            if (startIn.value || endIn.value) {
+                const start = new Date(`1970-01-01T${startTime}`);
+                const end = new Date(`1970-01-01T${endTime}`);
+                let diff = (end - start) / (1000 * 60 * 60);
+                if (diff < 0) diff += 24; // Korrektur falls über Mitternacht gearbeitet wird
+
+                if (diff > 9) breakIn.value = "00:45";
+                else if (diff > 6) breakIn.value = "00:30";
+                else breakIn.value = "00:00";
+            }
+        };
+
+        startIn.addEventListener("change", updateBreak);
+        endIn.addEventListener("change", updateBreak);
+
+        // Blur-Event: Füllt Nullen automatisch auf, wenn der User das Feld verlässt
+        const autoFormatOnBlur = (e) => {
+            e.target.value = sanitizeTime(e.target.value);
+            updateBreak();
+        };
+
+        startIn.addEventListener("blur", autoFormatOnBlur);
+        endIn.addEventListener("blur", autoFormatOnBlur);
+        breakIn.addEventListener("blur", autoFormatOnBlur);
+
+        tbody.appendChild(row);
+    }
+}
+
+// Extrahiert Journal-Daten und führt sie mit der bestehenden Konfiguration zusammen
+function saveWorkFileData() {
+    const year = document.getElementById("work_year").value;
+    const month = document.getElementById("work_month").value;
+    const rows = document.querySelectorAll("#work_days_body tr");
+    const entries = [];
+
+    rows.forEach(row => {
+        const start = sanitizeTime(row.querySelector(".work_start").value);
+        const end = sanitizeTime(row.querySelector(".work_end").value);
+        const brk = sanitizeTime(row.querySelector(".work_break").value);
+
+        // Nur speichern, wenn der Tag nicht komplett leer (00:00 bis 00:00) ist
+        if (start !== "00:00" || end !== "00:00") {
+            entries.push([
+                row.cells[0].innerText,                  // tag
+                start,                                   // beginn
+                end,                                     // ende
+                brk,                                     // pause
+                row.querySelector(".work_reason").value, // begründung
+                row.querySelector(".work_comment").value // kommentar
+            ]);
+        }
+    });
+
+    if (!currentConfig) currentConfig = {};
+    if (!currentConfig.journal) currentConfig.journal = {};
+    if (!currentConfig.journal[year]) currentConfig.journal[year] = {};
+
+    currentConfig.journal[year][month] = entries;
+
+    saveFileAsJson(currentConfig);
+    alert(`Das Journal für ${month}/${year} wurde der JSON-Konfiguration hinzugefügt.`);
+}
+
+// Führt die Formulardaten mit der bestehenden Konfiguration zusammen, um keine Daten zu verlieren
+function updateConfigWithFormData(prefix) {
+    const formData = getData(prefix);
+    
+    // Wenn noch keine Datei geladen wurde, nehmen wir die Formulardaten als Basis
+    if (!currentConfig) return formData;
+
+    // Deep Merge (Ebene 1 der Objekte), um zusätzliche Felder in der JSON zu erhalten
+    currentConfig.employee = { ...(currentConfig.employee || {}), ...formData.employee };
+    currentConfig.employer = { ...(currentConfig.employer || {}), ...formData.employer };
+    currentConfig.worktime = { ...(currentConfig.worktime || {}), ...formData.worktime };
+    currentConfig.workdays = { ...(currentConfig.workdays || {}), ...formData.workdays };
+    currentConfig.vacationDays = formData.vacationDays;
+    currentConfig.other = formData.other;
+
+    return currentConfig;
+}
 
 
 // #################
@@ -133,7 +290,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // #################
 // |-- HTML Elemente manipulieren
 // |  |-- Bereiche anzeigen/ausblenden
-});
 function showArea(areaId) {
     // Alle Bereiche ausblenden und dann den gewünschten Bereich anzeigen (mit der class="wrk_container" über attribute active) 
     const areas = document.querySelectorAll(".wrk_container"); // Alle Bereiche mit der Klasse "wrk_container" auswählen
@@ -153,116 +309,118 @@ function showArea(areaId) {
 }
 // -- eingabe
 // |-- Daten aus Formularen sammeln und in einem Objekt speichern Create File
-function getData() {
-    let data = {}; // Lokale Variable für die Daten, die in der JSON-Datei gespeichert sind, damit sie in verschiedenen Funktionen zugänglich sind
-    data = { 
+function getData(prefix = "") {
+    let data = { 
         "employee": {
-            "name": document.getElementById("employeeName").value , 
-            "surname": document.getElementById("employeeSurname").value,
-            "title": document.getElementById("employeeTitle").value,
-            "id": document.getElementById("employeeID").value,
-            "department": document.getElementById("employeeDepartment").value,
-            "team": document.getElementById("employeeTeam").value,
-            "email": document.getElementById("employeeEmail").value,
-            "emailWork": document.getElementById("employeeEmailWork").value,
-            "phone": document.getElementById("employeePhone").value,
-            "phoneWork": document.getElementById("employeePhoneWork").value,
-            "address": document.getElementById("employeeAddress").value
+            "name": document.getElementById(prefix + "employeeName").value , 
+            "surname": document.getElementById(prefix + "employeeSurname").value,
+            "title": document.getElementById(prefix + "employeeTitle").value,
+            "id": document.getElementById(prefix + "employeeID").value,
+            "department": document.getElementById(prefix + "employeeDepartment").value,
+            "team": document.getElementById(prefix + "employeeTeam").value,
+            "email": document.getElementById(prefix + "employeeEmail").value,
+            "emailWork": document.getElementById(prefix + "employeeEmailWork").value,
+            "phone": document.getElementById(prefix + "employeePhone").value,
+            "phoneWork": document.getElementById(prefix + "employeePhoneWork").value,
+            "address": document.getElementById(prefix + "employeeAddress").value
         },
         "employer": {
-            "name": document.getElementById("employerName").value,
-            "department": document.getElementById("employerDepartment").value,
-            "address": document.getElementById("employerAddress").value,
-            "phone": document.getElementById("employerPhone").value,
-            "email": document.getElementById("employerEmail").value,
-            "id": document.getElementById("employerID").value,
-            "hr": document.getElementById("employerHr").value
+            "name": document.getElementById(prefix + "employerName").value,
+            "department": document.getElementById(prefix + "employerDepartment").value,
+            "address": document.getElementById(prefix + "employerAddress").value,
+            "phone": document.getElementById(prefix + "employerPhone").value,
+            "email": document.getElementById(prefix + "employerEmail").value,
+            "id": document.getElementById(prefix + "employerID").value,
+            "hr": document.getElementById(prefix + "employerHr").value
         },
         "worktime": {
-            "week": document.getElementById("worktimeWeek").value,
-            "days": document.getElementById("worktimeDays").value
+            "week": document.getElementById(prefix + "worktimeWeek").value,
+            "days": document.getElementById(prefix + "worktimeDays").value
         },
         "workdays": {
-            "monday": {"start" : document.getElementById("workdayMondayStart").value, "end": document.getElementById("workdayMondayEnd").value},
-            "tuesday": {"start" : document.getElementById("workdayTuesdayStart").value, "end": document.getElementById("workdayTuesdayEnd").value},
-            "wednesday": {"start" : document.getElementById("workdayWednesdayStart").value, "end": document.getElementById("workdayWednesdayEnd").value},
-            "thursday": {"start" : document.getElementById("workdayThursdayStart").value, "end": document.getElementById("workdayThursdayEnd").value},
-            "friday": {"start" : document.getElementById("workdayFridayStart").value, "end": document.getElementById("workdayFridayEnd").value},
-            "saturday": {"start" : document.getElementById("workdaySaturdayStart").value, "end": document.getElementById("workdaySaturdayEnd").value},
-            "sunday": {"start" : document.getElementById("workdaySundayStart").value, "end": document.getElementById("workdaySundayEnd").value}
+            "monday": {"start" : document.getElementById(prefix + "workdayMondayStart").value, "end": document.getElementById(prefix + "workdayMondayEnd").value},
+            "tuesday": {"start" : document.getElementById(prefix + "workdayTuesdayStart").value, "end": document.getElementById(prefix + "workdayTuesdayEnd").value},
+            "wednesday": {"start" : document.getElementById(prefix + "workdayWednesdayStart").value, "end": document.getElementById(prefix + "workdayWednesdayEnd").value},
+            "thursday": {"start" : document.getElementById(prefix + "workdayThursdayStart").value, "end": document.getElementById(prefix + "workdayThursdayEnd").value},
+            "friday": {"start" : document.getElementById(prefix + "workdayFridayStart").value, "end": document.getElementById(prefix + "workdayFridayEnd").value},
+            "saturday": {"start" : document.getElementById(prefix + "workdaySaturdayStart").value, "end": document.getElementById(prefix + "workdaySaturdayEnd").value},
+            "sunday": {"start" : document.getElementById(prefix + "workdaySundayStart").value, "end": document.getElementById(prefix + "workdaySundayEnd").value}
         },
-        "vacationDays": document.getElementById("vacationDays").value,
-        "other": vacationOthers
+        "vacationDays": document.getElementById(prefix + "vacationDays").value,
+        "other": vacationOthersEdit
     };
 
-    return data; // Gibt die gesammelten Daten zurück, damit sie in anderen Funktionen verwendet werden können (z.B. zum Speichern der Datei)
+    return data;
 };
 
-function addVacation(other) {
-    console.log("Hinzufügen Button geklickt:", other); // Debugging
+/**
+ * Aktualisiert die Anzeige oben rechts mit den Mitarbeiter- und Arbeitgeberdaten.
+ */
+function updateHeaderDisplay(data) {
+    const headerInfo = document.getElementById("header_info");
+    if (!headerInfo || !data) return;
+
+    const emp = data.employee || {};
+    const employer = data.employer || {};
+
+    headerInfo.innerHTML = `
+        <div><strong>${emp.surname || ""}, ${emp.name || ""}</strong> (${emp.title || ""})</div>
+        <div style="font-size: 0.85em; font-weight: bold;">ID: ${emp.id || "---"}</div>
+        <div style="font-size: 0.85em; color: #555;">${employer.name || ""} - ${employer.department || ""}</div>
+    `;
 }
 
 // -- verarbeitung
-// Leert alle Eingabefelder im Bereich "Datei Erstellen" und setzt die Liste der Freistellungen zurück.
-function resetCreateFileFields() {
-    const container = document.getElementById("ct_createFile");
-    if (!container) return;
-
-    // Alle Input-Felder innerhalb des Containers leeren
-    const inputs = container.querySelectorAll("input");
-    inputs.forEach(input => {
-        input.value = "";
-    });
-
-    // Globales Array für sonstige Freistellungen zurücksetzen
-    vacationOthers = [];
-
-    // Anzeige der Freistellungen im Div leeren
-    const displayDiv = document.getElementById("otherFreistellung");
-    if (displayDiv) {
-        displayDiv.innerHTML = "";
-    }
-}
-
 // -- ausgabe
 // |-- Datenobjekt aus JSON auswerten zum bearbeiten.
 // Daten im div "editFile_dataDisplay" anzeigen
 function displayData(data) {
-    console.log("scripts.js    displayData    > Daten erhalten: ", data); // Debugging
-    // Warten 1ms und dann die Daten anzeigen, um die Race Condition zu umgehen
-    setTimeout(() => {
-        // Daten im div "editFile_dataDisplay" anzeigen
-        // Employee Daten anzeigen
-        for (const [key, value] of Object.entries(data.employee)) {
-            document.getElementById("editFile_dataDisplay").innerHTML += "<label for='employee" + key + "'>" + key + ":</label><input type='text' id='employee" + key + "' value='" + value + "'><br/>";
+    console.log("scripts.js displayData > Daten erhalten: ", data);
+    const p = "edit_"; // Prefix
+
+    // Mitarbeiter-Daten füllen
+    document.getElementById(p + "employeeName").value = data.employee.name || "";
+    document.getElementById(p + "employeeSurname").value = data.employee.surname || "";
+    document.getElementById(p + "employeeTitle").value = data.employee.title || "";
+    document.getElementById(p + "employeeID").value = data.employee.id || "";
+    document.getElementById(p + "employeeDepartment").value = data.employee.department || "";
+    document.getElementById(p + "employeeTeam").value = data.employee.team || "";
+    document.getElementById(p + "employeeEmail").value = data.employee.email || "";
+    document.getElementById(p + "employeeEmailWork").value = data.employee.emailWork || "";
+    document.getElementById(p + "employeePhone").value = data.employee.phone || "";
+    document.getElementById(p + "employeePhoneWork").value = data.employee.phoneWork || "";
+    document.getElementById(p + "employeeAddress").value = data.employee.address || "";
+
+    // Arbeitgeber-Daten füllen
+    document.getElementById(p + "employerName").value = data.employer.name || "";
+    document.getElementById(p + "employerDepartment").value = data.employer.department || "";
+    document.getElementById(p + "employerAddress").value = data.employer.address || "";
+    document.getElementById(p + "employerPhone").value = data.employer.phone || "";
+    document.getElementById(p + "employerEmail").value = data.employer.email || "";
+    document.getElementById(p + "employerID").value = data.employer.id || "";
+    document.getElementById(p + "employerHr").value = data.employer.hr || "";
+
+    // Arbeitszeit füllen
+    document.getElementById(p + "worktimeWeek").value = data.worktime.week || "";
+    document.getElementById(p + "worktimeDays").value = data.worktime.days || "";
+
+    // Wochentage füllen
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    days.forEach(day => {
+        const dayKey = day.toLowerCase();
+        if (data.workdays[dayKey]) {
+            document.getElementById(p + "workday" + day + "Start").value = data.workdays[dayKey].start || "00:00";
+            document.getElementById(p + "workday" + day + "End").value = data.workdays[dayKey].end || "00:00";
         }
-        // Employer Daten anzeigen
-        for (const [key, value] of Object.entries(data.employer)) {
-            document.getElementById("editFile_dataDisplay").innerHTML += "<label for='employer" + key + "'>" + key + ":</label><input type='text' id='employer" + key + "' value='" + value + "'><br/>";
-        }
-        // Worktime Daten anzeigen
-        for (const [key, value] of Object.entries(data.worktime)) {
-            document.getElementById("editFile_dataDisplay").innerHTML += "<label for='worktime" + key + "'>" + key + ":</label><input type='text' id='worktime" + key + "' value='" + value + "'><br/>";
-        }
-        // Workdays Daten anzeigen
-        for (const [key, value] of Object.entries(data.workdays)) {
-            document.getElementById("editFile_dataDisplay").innerHTML += "<label for='workday" + key + "'>" + key + ":</label><input type='time' id='workday" + key + "Start' value='" + value.start + "'> - <input type='time' id='workday" + key + "End' value='" + value.end + "'><br/>";
-        }
-        // Vacation Days anzeigen
-        document.getElementById("editFile_dataDisplay").innerHTML += "<label for='vacationDays'>Vacation Days:</label><input type='text' id='vacationDays' value='" + data.vacationDays + "'><br/>";
-        // Other Freistellungen anzeigen
-        data.other.forEach(function(freistellung, index) {
-            document.getElementById("editFile_dataDisplay").innerHTML += "<label for='otherName" + index + "'>Other " + (index + 1) + " Name:</label><input type='text' id='otherName" + index + "' value='" + freistellung.name + "'><br/>";
-            document.getElementById("editFile_dataDisplay").innerHTML += "<label for='otherCount" + index + "'>Other " + (index + 1) + " Count:</label><input type='text' id='otherCount" + index + "' value='" + freistellung.count + "'><br/>";
-        });
-        // Other erweitern - Button hinzufügen
-        document.getElementById("editFile_dataDisplay").innerHTML += "<input type='text' id='otherName' placeholder='Sonstige Freistellungen'><br/>";
-        document.getElementById("editFile_dataDisplay").innerHTML += "<input type='text' id='otherCount' placeholder='Anzahl'><br/>";
-        document.getElementById("editFile_dataDisplay").innerHTML += "<button id='addOther'>Sonstige Freistellung hinzufügen</button><br/>";
-        document.getElementById("editFile_dataDisplay").innerHTML += "<div id='otherFreistellung'></div>"; // Hier werden die hinzugefügten Freistellungen angezeigt
-    }, 1);
+    });
+
+    // Urlaubstage
+    document.getElementById(p + "vacationDays").value = data.vacationDays || "";
+
+    // Sonstige Freistellungen (Array laden)
+    vacationOthersEdit = data.other || [];
+    renderOtherList(vacationOthersEdit, p + "otherFreistellung");
+
+    updateHeaderDisplay(data);
+    console.log("Bearbeitungsmaske erfolgreich gefüllt.");
 };
-
-
-// Initialisierung beim Laden der Seite
-showArea("ct_createFile") // Zeigt den Willkommensbereich an, wenn die Seite geladen wird, damit der Benutzer sofort eine Begrüßung sieht und weiß, dass er hier Dateien erstellen, bearbeiten oder verwenden kann

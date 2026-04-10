@@ -14,15 +14,16 @@
         <nav id="navigation">
             <ul>
                 <li><a href="#ct_menu" id="btn_welcome">Welcome</a></li>
-                <li><a href="#ct_menu" id="btn_createFile">Create File</a></li>
                 <li><a href="#ct_menu" id="btn_editFile">Edit File</a></li>
-                <li><a href="#ct_menu" id="btn_workFile">Work File</a></li>
+                <li id="nav_workFile"><a href="#ct_menu" id="btn_workFile">Work File</a></li>
                 <li><a href="#ct_menu" id="btn_exit">Exit</a></li>
             </ul>
+        </nav>
+        <div id="header_info" class="header-info"></div>
     </container>
     
     <!-- Welcome -->
-    <container id="ct_welcome" class="wrk_container"">
+    <container id="ct_welcome" class="wrk_container">
         <div class="containerHeader">
             <h1>Willkommen zur AZE-Tool Website</h1>
             <p>Hier kannst du dir eine Grunddatei erstellen und sie auf deinem Gerät speichern.</p>
@@ -31,109 +32,148 @@
         </div>
     </container>
 
-    <!-- createFile -->
-    <container id="ct_createFile" class="wrk_container">
-        <h2>Datei Erstellen</h2>
-          <p>Nur bei erstmaliger Nutzung notwendig.</p>
-          <t>
-            <h4>Arbeit Nehmer</h4>
-                <label for="employeeName">Name:</label>
-                <input type="text" id="employeeName" placeholder="Name des Arbeitnehmers">
-                <label for="employeeSurname">Nachname:</label>
-                <input type="text" id="employeeSurname" placeholder="Nachname des Arbeitnehmers">
-                <label for="employeeTitle">Titel:</label>
-                <input type="text" id="employeeTitle" placeholder="Titel des Arbeitnehmers">
-                <label for="employeeID">ID:</label>
-                <input type="text" id="employeeID" placeholder="ID des Arbeitnehmers">
-                <label for="employeeDepartment">Abteilung:</label>
-                <input type="text" id="employeeDepartment" placeholder="Abteilung des Arbeitnehmers">
-                <label for="employeeTeam">Team:</label>
-                <input type="text" id="employeeTeam" placeholder="Team des Arbeitnehmers">
-                <label for="employeeEmail">E-Mail (Privat):</label>
-                <input type="text" id="employeeEmail" placeholder="E-Mail des Arbeitnehmers Privat">
-                <label for="employeeEmailWork">E-Mail (Arbeit):</label>
-                <input type="text" id="employeeEmailWork" placeholder="E-Mail des Arbeitnehmers Arbeit">
-                <label for="employeePhone">Telefonnummer (Privat):</label>
-                <input type="text" id="employeePhone" placeholder="Telefonnummer des Arbeitnehmers Privat">
-                <label for="employeePhoneWork">Telefonnummer (Arbeit):</label>
-                <input type="text" id="employeePhoneWork" placeholder="Telefonnummer des Arbeitnehmers Arbeit">
-                <label for="employeeAddress">Adresse:</label>
-                <input type="text" id="employeeAddress" placeholder="Adresse des Arbeitnehmers">
-              <br/>
-            <h4>Arbeit Geber</h4>
-                <label for="employerName">Name:</label>
-                <input type="text" id="employerName" placeholder="Name des Arbeitgebers">
-                <label for="employerDepartment">Abteilung:</label>
-                <input type="text" id="employerDepartment" placeholder="Abteilung des Arbeitgebers">
-                <label for="employerAddress">Adresse:</label>
-                <input type="text" id="employerAddress" placeholder="Adresse des Arbeitgebers">
-                <label for="employerPhone">Telefonnummer:</label>
-                <input type="text" id="employerPhone" placeholder="Telefonnummer des Arbeitgebers">
-                <label for="employerEmail">E-Mail:</label>
-                <input type="text" id="employerEmail" placeholder="E-Mail des Arbeitgebers">
-                <label for="employerID">ID:</label>
-                <input type="text" id="employerID" placeholder="ID des Arbeitgebers">
-                <label for="employerHr">Bearbeiter Email:</label>
-                <input type="text" id="employerHr" placeholder="Email Bearbeiter des Arbeitgebers">
-              <br/>
-            <h4>Arbeitszeit</h4>
-                <label for="worktimeWeek">Wochenarbeitszeit:</label>
-                <input type="text" id="worktimeWeek" placeholder="Wochenarbeitszeit (Std)">
-                <label for="worktimeDays">Arbeitstage:</label>
-                <input type="text" id="worktimeDays" placeholder="Arbeitstage (Anzahl/Woche)">
-              <br/>
-                <label for="workdayMonday">Montag:</label>
-                <input type="time" id="workdayMondayStart" value="07:00" placeholder="Arbeitszeit Montag (z.B. 07:00)">
-                <input type="time" id="workdayMondayEnd" value="16:30" placeholder="Arbeitszeit Montag Ende (z.B. 15:00)">
-                <label for="workdayTuesday">Dienstag:</label>
-                <input type="time" id="workdayTuesdayStart" value="07:00" placeholder="Arbeitszeit Dienstag (z.B. 07:00)">
-                <input type="time" id="workdayTuesdayEnd" value="16:30" placeholder="Arbeitszeit Dienstag Ende (z.B. 15:00)">
-                <label for="workdayWednesday">Mittwoch:</label>
-                <input type="time" id="workdayWednesdayStart" value="07:00" placeholder="Arbeitszeit Mittwoch (z.B. 07:00)">
-                <input type="time" id="workdayWednesdayEnd" value="16:30" placeholder="Arbeitszeit Mittwoch Ende (z.B. 15:00)">
-                <label for="workdayThursday">Donnerstag:</label>
-                <input type="time" id="workdayThursdayStart" value="07:00" placeholder="Arbeitszeit Donnerstag (z.B. 07:00)">
-                <input type="time" id="workdayThursdayEnd" value="16:30" placeholder="Arbeitszeit Donnerstag Ende (z.B. 15:00)">
-                <label for="workdayFriday">Freitag:</label>
-                <input type="time" id="workdayFridayStart" value="07:00" placeholder="Arbeitszeit Freitag (z.B. 07:00)">
-                <input type="time" id="workdayFridayEnd" value="16:30" placeholder="Arbeitszeit Freitag Ende (z.B. 15:00)">
-                <label for="workdaySaturday">Samstag:</label>
-                <input type="time" id="workdaySaturdayStart" value="00:00" placeholder="Arbeitszeit Samstag (z.B. 07:00)">
-                <input type="time" id="workdaySaturdayEnd" value="00:00" placeholder="Arbeitszeit Samstag Ende (z.B. 15:00)">
-                <label for="workdaySunday">Sonntag:</label>
-                <input type="time" id="workdaySundayStart" value="00:00" placeholder="Arbeitszeit Sonntag (z.B. 07:00)">
-                <input type="time" id="workdaySundayEnd" value="00:00" placeholder="Arbeitszeit Sonntag Ende (z.B. 15:00)">
-              <br/>
-            <h4>Urlaub</h4>
-                <label for="vacationDays">Urlaubstage:</label>
-                <input type="text" id="vacationDays" placeholder="Urlaubstage (Anzahl)">
-              <br/>
-                <label for="otherFreistellung">Sonstige Freistellungen:</label>
-                <input type="text" id="otherName" placeholder="Sonstige Freistellungen">
-                <input type="text" id="otherCount" placeholder="Anzahl Jährlicher Anspruch">
-                <button id="btn_create_addOther">Hinzufügen</button>
-              <br/>
-                <h5><div id="otherFreistellung"></div></h5>
-              <br/>
-                <button id="btn_create_saveFile">Datei speichern</button>
-          </t>
-    </container>
-
     <!-- editFile -->
     <container id="ct_editFile" class="wrk_container">
         <h2>Datei auswählen</h2>
-          <label>Wähle Konfigurationsdatei (JSON):</label>
-        <br/>
+        <p>Wähle eine vorhandene Konfigurationsdatei aus, um sie anzuzeigen und zu bearbeiten.</p>
           <button id="btn_edit_loadFile">Datei laden</button>
-          <div id="fileContent"></div>
-          <div id="editFile_dataDisplay"><br/></div>
+        <hr/>
+        <div id="edit_form_container">
+            <t>
+                <h4>Arbeit Nehmer</h4>
+                    <label for="edit_employeeName">Name:</label>
+                    <input type="text" id="edit_employeeName" placeholder="Name">
+                    <label for="edit_employeeSurname">Nachname:</label>
+                    <input type="text" id="edit_employeeSurname" placeholder="Nachname">
+                    <label for="edit_employeeTitle">Titel:</label>
+                    <input type="text" id="edit_employeeTitle" placeholder="Titel">
+                    <label for="edit_employeeID">ID:</label>
+                    <input type="text" id="edit_employeeID" placeholder="ID">
+                    <label for="edit_employeeDepartment">Abteilung:</label>
+                    <input type="text" id="edit_employeeDepartment" placeholder="Abteilung">
+                    <label for="edit_employeeTeam">Team:</label>
+                    <input type="text" id="edit_employeeTeam" placeholder="Team">
+                    <label for="edit_employeeEmail">E-Mail (Privat):</label>
+                    <input type="text" id="edit_employeeEmail" placeholder="E-Mail Privat">
+                    <label for="edit_employeeEmailWork">E-Mail (Arbeit):</label>
+                    <input type="text" id="edit_employeeEmailWork" placeholder="E-Mail Arbeit">
+                    <label for="edit_employeePhone">Telefonnummer (Privat):</label>
+                    <input type="text" id="edit_employeePhone" placeholder="Telefonnummer Privat">
+                    <label for="edit_employeePhoneWork">Telefonnummer (Arbeit):</label>
+                    <input type="text" id="edit_employeePhoneWork" placeholder="Telefonnummer Arbeit">
+                    <label for="edit_employeeAddress">Adresse:</label>
+                    <input type="text" id="edit_employeeAddress" placeholder="Adresse">
+                <br/>
+                <h4>Arbeit Geber</h4>
+                    <label for="edit_employerName">Name:</label>
+                    <input type="text" id="edit_employerName" placeholder="Name">
+                    <label for="edit_employerDepartment">Abteilung:</label>
+                    <input type="text" id="edit_employerDepartment" placeholder="Abteilung">
+                    <label for="edit_employerAddress">Adresse:</label>
+                    <input type="text" id="edit_employerAddress" placeholder="Adresse">
+                    <label for="edit_employerPhone">Telefonnummer:</label>
+                    <input type="text" id="edit_employerPhone" placeholder="Telefonnummer">
+                    <label for="edit_employerEmail">E-Mail:</label>
+                    <input type="text" id="edit_employerEmail" placeholder="E-Mail">
+                    <label for="edit_employerID">ID:</label>
+                    <input type="text" id="edit_employerID" placeholder="ID">
+                    <label for="edit_employerHr">Bearbeiter Email:</label>
+                    <input type="text" id="edit_employerHr" placeholder="Email Bearbeiter">
+                <br/>
+                <h4>Arbeitszeit</h4>
+                    <label for="edit_worktimeWeek">Wochenarbeitszeit:</label>
+                    <input type="text" id="edit_worktimeWeek" placeholder="Wochenarbeitszeit (Std)">
+                    <label for="edit_worktimeDays">Arbeitstage:</label>
+                    <input type="text" id="edit_worktimeDays" placeholder="Arbeitstage (Anzahl/Woche)">
+                <br/>
+                    <label for="edit_workdayMonday">Montag:</label>
+                    <input type="time" id="edit_workdayMondayStart">
+                    <input type="time" id="edit_workdayMondayEnd">
+                    <label for="edit_workdayTuesday">Dienstag:</label>
+                    <input type="time" id="edit_workdayTuesdayStart">
+                    <input type="time" id="edit_workdayTuesdayEnd">
+                    <label for="edit_workdayWednesday">Mittwoch:</label>
+                    <input type="time" id="edit_workdayWednesdayStart">
+                    <input type="time" id="edit_workdayWednesdayEnd">
+                    <label for="edit_workdayThursday">Donnerstag:</label>
+                    <input type="time" id="edit_workdayThursdayStart">
+                    <input type="time" id="edit_workdayThursdayEnd">
+                    <label for="edit_workdayFriday">Freitag:</label>
+                    <input type="time" id="edit_workdayFridayStart">
+                    <input type="time" id="edit_workdayFridayEnd">
+                    <label for="edit_workdaySaturday">Samstag:</label>
+                    <input type="time" id="edit_workdaySaturdayStart">
+                    <input type="time" id="edit_workdaySaturdayEnd">
+                    <label for="edit_workdaySunday">Sonntag:</label>
+                    <input type="time" id="edit_workdaySundayStart">
+                    <input type="time" id="edit_workdaySundayEnd">
+                <br/>
+                <h4>Urlaub</h4>
+                    <label for="edit_vacationDays">Urlaubstage:</label>
+                    <input type="text" id="edit_vacationDays" placeholder="Urlaubstage (Anzahl)">
+                <br/>
+                    <label for="edit_otherName">Sonstige Freistellungen:</label>
+                    <input type="text" id="edit_otherName" placeholder="Name">
+                    <input type="text" id="edit_otherCount" placeholder="Anzahl">
+                    <button id="btn_edit_addOther">Hinzufügen</button>
+                <br/>
+                    <h5><div id="edit_otherFreistellung"></div></h5>
+                <br/>
+                <div id="edit_saveArea">
+                    <button id="btn_edit_saveFile">Änderungen speichern</button>
+                </div>
+            </t>
+        </div>
+        <div id="editFile_dataDisplay"></div>
     </container>
 
     <!-- workFile -->
     <container id="ct_workFile" class="wrk_container">
-        <h2>Datei bearbeiten</h2>
-          <p>Hier kannst du deine gespeicherte Datei bearbeiten.</p>
-          <p>UNDER CONSTRUCTION</p>
-          <div id="workFileContent"></div>
+        <div id="work_no_config_msg">
+            <h2>Arbeitszeiten erfassen (Journal)</h2>
+            <p>Bitte lade zuerst eine Konfigurationsdatei (JSON) im Bereich "Edit File", um das Journal zu nutzen.</p>
+        </div>
+        <div id="work_actual_content" style="display: none;">
+            <h2>Arbeitszeiten erfassen (Journal)</h2>
+            <div class="work_selection">
+                <label for="work_year">Jahr:</label>
+                <input type="number" id="work_year" min="2000" max="2100" style="width: 80px;">
+                <label for="work_month" style="margin-left: 15px;">Monat:</label>
+                <select id="work_month">
+                    <option value="1">Januar</option>
+                    <option value="2">Februar</option>
+                    <option value="3">März</option>
+                    <option value="4">April</option>
+                    <option value="5">Mai</option>
+                    <option value="6">Juni</option>
+                    <option value="7">Juli</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">Dezember</option>
+                </select>
+            </div>
+            <hr/>
+            <div id="work_table_container" style="margin-top: 15px; overflow-x: auto;">
+                <table id="work_table" style="width:100%; text-align: left; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #ddd;">
+                            <th>Tag</th>
+                            <th>Beginn</th>
+                            <th>Ende</th>
+                            <th>Pause</th>
+                            <th>Begründung</th>
+                            <th>Kommentar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="work_days_body">
+                        <!-- Dynamisch erzeugt -->
+                    </tbody>
+                </table>
+            </div>
+            <br/>
+            <button id="btn_work_save">Änderungen an JSON anhängen</button>
+        </div>
     </container>
 </html>
